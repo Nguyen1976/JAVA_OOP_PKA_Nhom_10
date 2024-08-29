@@ -1,4 +1,4 @@
-public class InterfacesExercise1 {
+public class InitializationAndCleanupExercise1 {
     String s1;
 
     public void displayS1() {
@@ -10,7 +10,7 @@ public class InterfacesExercise1 {
     }
 
     public static void main(String[] args) {
-        InterfacesExercise1 obj = new InterfacesExercise1();
+        InitializationAndCleanupExercise1 obj = new InitializationAndCleanupExercise1();
         obj.displayS1();
     }
 }
