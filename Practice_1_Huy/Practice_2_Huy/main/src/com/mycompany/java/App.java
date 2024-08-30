@@ -18,6 +18,6 @@ public class App {
         System.out.println("Factorial: " + recursion.factorial(4));
         System.out.println("Hello");
         Time time = new Time(7, 40, 45);
-        System.out.println("Time: " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
+        System.out.println("Time bbbbb: " + time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());
     }
 }
