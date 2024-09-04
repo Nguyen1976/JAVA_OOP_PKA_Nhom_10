@@ -1,7 +1,3 @@
-class MyNumber {
-    public int i; // Thuộc tính 'i' của lớp MyNumber
-}
-
 public class Assignment2 {
     public static void main(String[] args) {
         // Tạo hai đối tượng MyNumber
