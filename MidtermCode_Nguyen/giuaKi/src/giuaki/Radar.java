@@ -8,7 +8,8 @@ public class Radar {
         int[] signal = new int[16];
         for (int i = 0; i < 16; i++) {
             if (i <= 15) {
-                signal[i] = 1-(i/15);
+                
+                signal[i] = (int) Math.round(1 - (i / 15.0));
             } else {
                 signal[i] = 0;
             }
