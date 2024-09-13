@@ -16,5 +16,5 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 ## Cách Cài Đặt
 1. Clone repository từ GitHub:
    ```bash
-   git clone https://github.com/username/repository.githttps://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10
+   git clone https://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10/tree/FinaltermCode)
    
