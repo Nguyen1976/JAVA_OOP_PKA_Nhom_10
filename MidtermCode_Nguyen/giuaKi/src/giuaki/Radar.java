@@ -5,8 +5,8 @@ public class Radar {
 	public int[] analyzeSignal(int n) {
 		//tạo ra mảng signal gồm 16 phần tử
 		//chứa các giá trị được tính toán dựa trên biểu thức 1-i/15
-        int[] signal = new int[16];
-        for (int i = 0; i < 16; i++) {
+        int[] signal = new int[n];
+        for (int i = 0; i < n; i++) {
             if (i <= 15) {
                 //vì i/15 trả về số nguyên
                 signal[i] = (int) Math.round(1 - (i / 15.0));
