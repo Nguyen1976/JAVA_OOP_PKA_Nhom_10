@@ -1,4 +1,4 @@
-package com.finalproj.deploy;
+package com.finalproj;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

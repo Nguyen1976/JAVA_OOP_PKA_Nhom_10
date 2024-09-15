@@ -1,4 +1,4 @@
-package com.finalproj.deploy;
+package com.finalproj;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

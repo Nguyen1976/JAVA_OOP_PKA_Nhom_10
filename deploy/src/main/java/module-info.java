@@ -3,6 +3,6 @@ module com.finalproj.deploy {
     requires javafx.fxml;
 
 
-    opens com.finalproj.deploy to javafx.fxml;
-    exports com.finalproj.deploy;
+    opens com.finalproj to javafx.fxml;
+    exports com.finalproj;
 }
