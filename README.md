@@ -13,8 +13,12 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 - Phân chia và quản lý phòng điều trị.
 - Báo cáo và thống kê dữ liệu y tế.
 
+## UML Dự Án
+
+![UML](./img/uml.jpg)
+
 ## Cách Cài Đặt
 1. Clone repository từ GitHub:
    ```bash
-   git clone https://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10/tree/FinaltermCode)
+   git clone https://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10/tree/FinaltermCode
    
