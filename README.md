@@ -8,10 +8,12 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 - **Nguyễn Hà Nguyên**: Phát triển phần mềm toàn diện.
 
 ## Chức Năng Chính
-- Quản lý hồ sơ bệnh nhân.
-- Lên lịch hẹn khám.
-- Phân chia và quản lý phòng điều trị.
-- Báo cáo và thống kê dữ liệu y tế.
+- Thêm, sửa, xoá bệnh nhân
+- Thêm, sửa, xoá phòng điều trị
+- Lấy thông tin bệnh nhân
+- Lấy thông tin phòng điều trị
+- Thêm bệnh nhân vào phòng điều trị(Nhập viện)
+- Xoá bệnh nhân khỏi phòng điều trị(Ra viện)
 
 ## UML Dự Án
 
