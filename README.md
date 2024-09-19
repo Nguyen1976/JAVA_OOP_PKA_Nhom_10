@@ -15,7 +15,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## UML Dự Án
 
-![UML](./img/uml.jpg)
+![UML](./img/UML.png)
 
 ## Cách Cài Đặt
 1. Clone repository từ GitHub:
