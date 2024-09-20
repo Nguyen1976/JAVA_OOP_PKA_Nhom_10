@@ -18,8 +18,8 @@ public class LoginController {
     @FXML
     private TextField password;
 
-    private final String ACCOUNT = "123";
-    private final String PASSWORD = "123";
+    private final String ACCOUNT = "1";
+    private final String PASSWORD = "1";
 
     private boolean handleLogin() {
         if(account.getText().equals(ACCOUNT) && password.getText().equals(PASSWORD)) {
@@ -45,9 +45,9 @@ public class LoginController {
         if(handleLogin()) {
             Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/finalproj/Hospital.fxml"));
-            Parent sinhVienViewParent = loader.load();
-            Scene scene = new Scene(sinhVienViewParent);
+            loader.setLocation(getClass().getResource("/com/finalproj/HospitalView.fxml"));
+            Parent hospitalViewParent = loader.load();
+            Scene scene = new Scene(hospitalViewParent);
 
             stage.setScene(scene);
         }

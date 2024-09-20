@@ -17,7 +17,28 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## UML Dự Án
 
+## 1.1 UML Component Diagram
+
 ![UML](./img/UML.png)
+
+## 1.2 UML Sequence Diagram
+
+## 1.2.1 
+
+![UML](./img/sequence1.jpg)
+
+## 1.2.2
+
+![UML](./img/sequence2.jpg)
+
+## 1.2.3
+
+![UML](./img/sequence3.jpg)
+
+## 1.2.4
+
+![UML](./img/sequence4.jpg)
+
 
 ## Cách Cài Đặt
 1. Clone repository từ GitHub:
