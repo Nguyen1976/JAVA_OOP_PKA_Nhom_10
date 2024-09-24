@@ -19,7 +19,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.1 UML Component Diagram
 
-![UML](./img/UML.png)
+![UML](./img/qlbv.jpg)
 
 ## 1.2 UML Sequence Diagram
 
