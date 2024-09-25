@@ -35,7 +35,7 @@ public class Hospital {
     }
 
     //add patient
-    public void addPatient(Patient patient) {
+    public void addPatientToHospital(Patient patient) {
         if(patient.getName().length() <=50){
             patient.setPatientId(nextId);
             patientsList.add(patient);
@@ -123,7 +123,49 @@ public class Hospital {
                 .orElse(null);
     }
 
+    public boolean comparePatientDiagnoseWithRoomType(int patientId, int roomId){
+        Patient patient = getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = getRoomInfo(roomId);
+        if (patient != null || treatmentRoom != null) {
+            System.out.println("Not found");
+            return false;
+        }
 
+        return patient.getDiagnose().equalsIgnoreCase(treatmentRoom.getRoomType());
+    }
+
+    public void assignPatientToRoom(int patientId, int roomId){
+        Patient patient = getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = getRoomInfo(roomId);
+        if(patient != null || treatmentRoom != null) {
+            System.out.println("Not found");
+        }
+
+        if(!treatmentRoom.isRoomFull() && comparePatientDiagnoseWithRoomType(patientId, roomId)){
+            treatmentRoom.getPatientsList().add(patient);
+            System.out.println("Patient assign TreatmentRoom");
+        }else {
+            System.out.println("Can not assign patient to room");
+        }
+    }
+
+
+    //remove patient from room
+    public void removePatientFromRoom(int patientId, int roomId){
+        Patient patient = getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = getRoomInfo(roomId);
+
+        if(patient != null || treatmentRoom != null) {
+            System.out.println("Not found");
+        }
+
+        for(TreatmentRoom room : treatmentRoomList){
+            if (treatmentRoom.getPatientsList().contains(patient)) {
+                treatmentRoom.getPatientsList().remove(patient);
+                System.out.println("Benh nhan xuat vien");
+            }
+        }
+    }
 
 
 
