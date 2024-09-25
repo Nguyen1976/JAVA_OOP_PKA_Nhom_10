@@ -59,6 +59,6 @@ public class TreatmentRoom {
 
     //roomFull?
     public boolean isRoomFull(){
-        return patientsList.size() == capacity;
+        return patientsList.size() >= capacity;
     }
 }

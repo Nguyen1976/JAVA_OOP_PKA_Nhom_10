@@ -9,7 +9,7 @@ public class Patient {
     private Address address;
     private String phone;
 
-    public Patient(int patientId, String name, int age, String gender, String diagnose, Address address, String phone) {
+    public Patient(int patientId ,String name, int age, String gender, String diagnose, Address address, String phone) {
         this.patientId = patientId;
         this.name = name;
         this.age = age;
@@ -74,4 +74,7 @@ public class Patient {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
+
 }
