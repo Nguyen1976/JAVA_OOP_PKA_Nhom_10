@@ -19,23 +19,23 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.1 UML Component Diagram
 
-![UML](./img/qlbv.jpg)
+![UML](./img/UML.png)
 
 ## 1.2 UML Sequence Diagram
 
-## 1.2.1 
+## 1.2.1 : assignPatientToRoom()
 
 ![UML](./img/sequence1.jpg)
 
-## 1.2.2
+## 1.2.2 : isRoomFull()
 
 ![UML](./img/sequence2.jpg)
 
-## 1.2.3
+## 1.2.3 : comparePatientDiagnoseWithRoomType()
 
 ![UML](./img/sequence3.jpg)
 
-## 1.2.4
+## 1.2.4 : removePatientFromRoom()
 
 ![UML](./img/sequence4.jpg)
 
