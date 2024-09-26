@@ -17,6 +17,8 @@ public class TreatmentRoom {
         this.patientsList = patientsList;
     }
 
+
+
     public int getRoomId() {
         return roomId;
     }
