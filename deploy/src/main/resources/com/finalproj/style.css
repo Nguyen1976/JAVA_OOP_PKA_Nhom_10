@@ -1,0 +1,15 @@
+.label {
+    -fx-text-fill: #0ab54d;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-text-fill: #fff;
+    -fx-background-color: #4ab54d;
+    -fx-font-weight: bold;
+}
+
+.radio-button {
+    -fx-text-fill:  #4ab54d;
+     -fx-font-weight: bold;
+}

@@ -5,11 +5,12 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.PatientViewController">
+<AnchorPane prefHeight="463.0" prefWidth="729.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.PatientViewController">
    <children>
       <Label layoutX="298.0" layoutY="23.0" text="Thông tin bệnh nhân">
          <font>
@@ -24,7 +25,6 @@
       <RadioButton fx:id="femaleGender" layoutX="582.0" layoutY="71.0" mnemonicParsing="false" text="Nữ" />
       <Label layoutX="442.0" layoutY="72.0" text="Giới tính" />
       <Label layoutX="45.0" layoutY="128.0" text="Chẩn đoán" />
-      <TextField fx:id="diagnosePatient" layoutX="126.0" layoutY="124.0" prefHeight="26.0" prefWidth="167.0" />
       <Label layoutX="365.0" layoutY="128.0" text="Địa chỉ" />
       <TextField fx:id="districtPatient" layoutX="461.0" layoutY="124.0" prefHeight="26.0" prefWidth="46.0" />
       <Label layoutX="428.0" layoutY="128.0" text="Quận" />
@@ -32,7 +32,7 @@
       <TextField fx:id="cityPatient" layoutX="555.0" layoutY="123.0" prefHeight="26.0" prefWidth="74.0" />
       <Label layoutX="39.0" layoutY="182.0" text="Sô điện thoại" />
       <TextField fx:id="phonePatient" layoutX="126.0" layoutY="178.0" prefHeight="26.0" prefWidth="167.0" />
-      <Button layoutX="329.0" layoutY="219.0" mnemonicParsing="false" onAction="#addPatient" text="Thêm bệnh nhân" />
+      <Button layoutX="77.0" layoutY="219.0" mnemonicParsing="false" onAction="#addPatient" text="Thêm bệnh nhân" />
       <TableView fx:id="infoPatient" layoutX="3.0" layoutY="263.0" prefHeight="200.0" prefWidth="729.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="33.6000075340271" text="ID" />
@@ -44,5 +44,12 @@
             <TableColumn fx:id="diagnoseCol" prefWidth="196.800048828125" text="Chẩn đoán" />
         </columns>
       </TableView>
+      <Button layoutX="238.0" layoutY="219.0" mnemonicParsing="false" onAction="#updatePatient" prefHeight="25.0" prefWidth="111.0" text="Sửa bệnh nhân" />
+      <Button layoutX="484.0" layoutY="219.0" mnemonicParsing="false" onAction="#deletePatient" prefHeight="25.0" prefWidth="111.0" text="Xóa bệnh nhân" />
+      <Label layoutX="384.0" layoutY="183.0" text="Nhập ID" />
+      <TextField layoutX="465.0" layoutY="179.0" prefHeight="25.0" prefWidth="39.0" />
+      <TextArea fx:id="diagnosePatient" layoutX="125.0" layoutY="111.0" prefHeight="53.0" prefWidth="167.0" />
+      <Button layoutX="521.0" layoutY="179.0" mnemonicParsing="false" text="Tìm kiếm" />
+      <Button layoutX="357.0" layoutY="219.0" mnemonicParsing="false" onAction="#savePatient" text="Lưu bệnh nhân" />
    </children>
 </AnchorPane>

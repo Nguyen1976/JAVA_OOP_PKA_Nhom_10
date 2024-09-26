@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HospitalViewController {
+
     @FXML
     private void changeSceneAddPatient(ActionEvent e) throws IOException {
         Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
@@ -18,6 +19,7 @@ public class HospitalViewController {
         loader.setLocation(getClass().getResource("/com/finalproj/PatientView.fxml"));
         Parent addPatientViewParent = loader.load();
         Scene scene = new Scene(addPatientViewParent);
+
 
         stage.setScene(scene);
     }

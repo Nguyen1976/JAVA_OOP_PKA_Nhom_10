@@ -5,14 +5,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.HospitalViewController">
    <children>
-      <Label layoutX="267.0" layoutY="40.0" text="Hospital">
+      <Label layoutX="241.0" layoutY="27.0" style="-fx-font-weight: bold;" text="Hospital" textFill="#0ab54d">
          <font>
-            <Font size="18.0" />
+            <Font size="30.0" />
          </font>
       </Label>
-      <Button onAction="#changeSceneAddPatient" layoutX="230.0" layoutY="141.0" mnemonicParsing="false" prefHeight="118.0" prefWidth="140.0" text="Bệnh nhân" />
+      <Button layoutX="231.0" layoutY="141.0" mnemonicParsing="false" onAction="#changeSceneAddPatient" prefHeight="118.0" prefWidth="140.0" style="-fx-background-color: #0AB54D; -fx-font-weight: bold;" text="Bệnh nhân" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
