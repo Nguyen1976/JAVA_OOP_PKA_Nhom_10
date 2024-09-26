@@ -42,9 +42,12 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 ## Giao diện đầu tiên của dự án
 ![firstScreen](./img/firstScreen.png)
 
+## GitHub Pages Dự Án
+[Truy cập dự án tại đây](https://nguyen1976.github.io/JAVA_OOP_PKA_Nhom_10/)
+
 
 ## Cách Cài Đặt
 1. Clone repository từ GitHub:
    ```bash
-   git clone https://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10/tree/FinaltermCode
+   git clone -b FinaltermCode https://github.com/Nguyen1976/JAVA_OOP_PKA_Nhom_10.git
    
