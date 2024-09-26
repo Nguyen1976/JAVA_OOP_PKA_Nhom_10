@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.HospitalViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.HospitalViewController">
    <children>
       <Label layoutX="241.0" layoutY="27.0" style="-fx-font-weight: bold;" text="Hospital" textFill="#0ab54d">
          <font>
@@ -17,5 +17,6 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Button fx:id="logoutBtn" layoutX="492.0" layoutY="37.0" mnemonicParsing="false" onAction="#logout" text="Đăng xuất" />
    </children>
 </AnchorPane>

@@ -51,5 +51,6 @@
       <TextArea fx:id="diagnosePatient" layoutX="125.0" layoutY="111.0" prefHeight="53.0" prefWidth="167.0" />
       <Button layoutX="521.0" layoutY="179.0" mnemonicParsing="false" text="Tìm kiếm" />
       <Button layoutX="357.0" layoutY="219.0" mnemonicParsing="false" onAction="#savePatient" text="Lưu bệnh nhân" />
+      <Button fx:id="backHomeBtn" layoutX="22.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToHome" text="&lt;" />
    </children>
 </AnchorPane>
