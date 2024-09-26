@@ -12,6 +12,7 @@ public class Hospital {
     public Hospital() {
         this.patientsList = new ArrayList<>();
         this.treatmentRoomList = new ArrayList<>();
+        this.nextId = 1;
     }
 
     //find Patient
@@ -35,7 +36,7 @@ public class Hospital {
     }
 
     //add patient
-    public void addPatientToHospital(Patient patient) {
+    public void addPatient(Patient patient) {
         if(patient.getName().length() <=50){
             patient.setPatientId(nextId);
             patientsList.add(patient);

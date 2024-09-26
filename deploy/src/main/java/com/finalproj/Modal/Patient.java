@@ -9,7 +9,7 @@ public class Patient {
     private Address address;
     private String phone;
 
-    public Patient(int patientId ,String name, int age, String gender, String diagnose, Address address, String phone) {
+    public Patient(int patientId, String name, int age, String gender, String diagnose, Address address, String phone) {
         this.patientId = patientId;
         this.name = name;
         this.age = age;
@@ -18,6 +18,8 @@ public class Patient {
         this.address = address;
         this.phone = phone;
     }
+
+
 
     public int getPatientId() {
         return patientId;
