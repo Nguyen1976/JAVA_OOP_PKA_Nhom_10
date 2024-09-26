@@ -9,14 +9,15 @@ public class HospitalController {
     private Hospital hospital;
 
 
-
     public HospitalController(Hospital hospital) {
         this.hospital = hospital;
     }
 
     public HospitalController() {
-
+        // Khởi tạo đối tượng bệnh viện
+        this.hospital = new Hospital();
     }
+
 
     //FindPatient by id
     public Patient findPatient(int patientId) {
@@ -112,9 +113,8 @@ public class HospitalController {
         }
     }
 
-    public List<Patient> getListPatient(){
-        List<Patient> listPatient = hospital.getPatientsList();
-        return listPatient;
+    public List<Patient> getListPatient() {
+        return hospital.getPatientsList();
     }
 
 }

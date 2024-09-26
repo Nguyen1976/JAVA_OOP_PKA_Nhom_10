@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #cccccc47;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #cccccc47;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.LoginController">
    <children>
-      <Label layoutX="246.0" layoutY="45.0" style="-fx-font-weight: bold;" text="Đăng Nhập" textFill="#0ab54d">
+      <Label layoutX="246.0" layoutY="45.0" text="Đăng Nhập" textFill="#0ab54d">
          <font>
             <Font size="20.0" />
          </font>
@@ -25,7 +25,7 @@
          </font>
       </Label>
       <TextField fx:id="account" layoutX="191.0" layoutY="118.0" prefHeight="26.0" prefWidth="273.0" />
-      <Button layoutX="250.0" layoutY="259.0" mnemonicParsing="false" onAction="#changeScene" style="-fx-background-color: #0AB54D;" text="Đăng nhập" textFill="WHITE">
+      <Button layoutX="250.0" layoutY="259.0" mnemonicParsing="false" onAction="#changeScene" text="Đăng nhập" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
