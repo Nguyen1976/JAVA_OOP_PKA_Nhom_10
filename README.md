@@ -23,7 +23,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.2 UML Sequence Diagram
 
-## 1.2.1 
+## 1.2.1 Title:
 
 ![UML](./img/sequence1.jpg)
 
