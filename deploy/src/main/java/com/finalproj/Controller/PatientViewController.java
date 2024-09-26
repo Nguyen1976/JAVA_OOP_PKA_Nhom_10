@@ -11,11 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PatientViewController implements Initializable {
+    @FXML
+    private Button backHomeBtn;
     @FXML
     private TextField namePatient;
     @FXML
@@ -200,7 +204,15 @@ public class PatientViewController implements Initializable {
         }
     }
 
-
+    public void backToHome(ActionEvent e) throws IOException {
+        Stage currentStage = (Stage) backHomeBtn.getScene().getWindow();//Lấy ra cái cửa sổ hiện tại
+        BackToHome backToHome = new BackToHome();
+        try {
+            backToHome.goToHome(currentStage);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     //---------------Method dùng chung-------------------------------
 
