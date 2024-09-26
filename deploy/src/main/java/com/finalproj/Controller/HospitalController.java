@@ -3,12 +3,19 @@ package com.finalproj.Controller;
 import com.finalproj.Modal.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HospitalController {
     private Hospital hospital;
 
+
+
     public HospitalController(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public HospitalController() {
+
     }
 
     //FindPatient by id
@@ -105,6 +112,9 @@ public class HospitalController {
         }
     }
 
-
+    public List<Patient> getListPatient(){
+        List<Patient> listPatient = hospital.getPatientsList();
+        return listPatient;
+    }
 
 }

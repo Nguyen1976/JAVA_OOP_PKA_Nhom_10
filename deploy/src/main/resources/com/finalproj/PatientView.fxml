@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.HospitalViewController">
+<AnchorPane prefHeight="463.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.PatientViewController">
    <children>
       <Label layoutX="298.0" layoutY="23.0" text="Thông tin bệnh nhân">
          <font>
@@ -18,30 +18,30 @@
       </Label>
       <Label layoutX="34.0" layoutY="72.0" text="Tên bệnh nhân" />
       <Label layoutX="334.0" layoutY="71.0" text="Tuổi" />
-      <TextField layoutX="125.0" layoutY="68.0" prefHeight="26.0" prefWidth="167.0" />
-      <TextField layoutX="367.0" layoutY="68.0" prefHeight="26.0" prefWidth="31.0" />
-      <RadioButton layoutX="508.0" layoutY="72.0" mnemonicParsing="false" text="Nam" />
-      <RadioButton layoutX="582.0" layoutY="71.0" mnemonicParsing="false" text="Nữ" />
+      <TextField fx:id="namePatient" layoutX="125.0" layoutY="68.0" prefHeight="26.0" prefWidth="167.0" />
+      <TextField fx:id="agePatient" layoutX="367.0" layoutY="68.0" prefHeight="26.0" prefWidth="31.0" />
+      <RadioButton fx:id="maleGender" layoutX="508.0" layoutY="72.0" mnemonicParsing="false" text="Nam" />
+      <RadioButton fx:id="femaleGender" layoutX="582.0" layoutY="71.0" mnemonicParsing="false" text="Nữ" />
       <Label layoutX="442.0" layoutY="72.0" text="Giới tính" />
       <Label layoutX="45.0" layoutY="128.0" text="Chẩn đoán" />
-      <TextField layoutX="126.0" layoutY="124.0" prefHeight="26.0" prefWidth="167.0" />
+      <TextField fx:id="diagnosePatient" layoutX="126.0" layoutY="124.0" prefHeight="26.0" prefWidth="167.0" />
       <Label layoutX="365.0" layoutY="128.0" text="Địa chỉ" />
-      <TextField layoutX="461.0" layoutY="124.0" prefHeight="26.0" prefWidth="46.0" />
+      <TextField fx:id="districtPatient" layoutX="461.0" layoutY="124.0" prefHeight="26.0" prefWidth="46.0" />
       <Label layoutX="428.0" layoutY="128.0" text="Quận" />
       <Label layoutX="532.0" layoutY="128.0" text="TP" />
-      <TextField layoutX="555.0" layoutY="123.0" prefHeight="26.0" prefWidth="74.0" />
+      <TextField fx:id="cityPatient" layoutX="555.0" layoutY="123.0" prefHeight="26.0" prefWidth="74.0" />
       <Label layoutX="39.0" layoutY="182.0" text="Sô điện thoại" />
-      <TextField layoutX="126.0" layoutY="178.0" prefHeight="26.0" prefWidth="167.0" />
-      <Button layoutX="329.0" layoutY="219.0" mnemonicParsing="false" text="Thêm bệnh nhân" />
-      <TableView layoutX="3.0" layoutY="263.0" prefHeight="200.0" prefWidth="729.0">
+      <TextField fx:id="phonePatient" layoutX="126.0" layoutY="178.0" prefHeight="26.0" prefWidth="167.0" />
+      <Button layoutX="329.0" layoutY="219.0" mnemonicParsing="false" onAction="#addPatient" text="Thêm bệnh nhân" />
+      <TableView fx:id="infoPatient" layoutX="3.0" layoutY="263.0" prefHeight="200.0" prefWidth="729.0">
         <columns>
-          <TableColumn prefWidth="33.6000075340271" text="ID" />
-          <TableColumn prefWidth="150.40001678466797" text="Tên " />
-            <TableColumn prefWidth="41.60003662109375" text="Tuổi" />
-            <TableColumn prefWidth="75.0" text="Giới tính" />
-            <TableColumn prefWidth="125.60003662109375" text="Địa chỉ" />
-            <TableColumn prefWidth="104.79995727539062" text="Số điện thoại" />
-            <TableColumn prefWidth="196.800048828125" text="Chẩn đoán" />
+          <TableColumn fx:id="idCol" prefWidth="33.6000075340271" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="150.40001678466797" text="Tên " />
+            <TableColumn fx:id="ageCol" prefWidth="41.60003662109375" text="Tuổi" />
+            <TableColumn fx:id="genderCol" prefWidth="75.0" text="Giới tính" />
+            <TableColumn fx:id="addressCol" prefWidth="125.60003662109375" text="Địa chỉ" />
+            <TableColumn fx:id="phoneCol" prefWidth="104.79995727539062" text="Số điện thoại" />
+            <TableColumn fx:id="diagnoseCol" prefWidth="196.800048828125" text="Chẩn đoán" />
         </columns>
       </TableView>
    </children>
