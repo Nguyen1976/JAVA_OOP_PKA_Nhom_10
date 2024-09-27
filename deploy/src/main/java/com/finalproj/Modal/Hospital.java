@@ -180,6 +180,7 @@ public class Hospital {
     public List<TreatmentRoom> getTreatmentRoomList() {
         return treatmentRoomList;
     }
+
     public int getNextId() {
         return nextId;
     }
