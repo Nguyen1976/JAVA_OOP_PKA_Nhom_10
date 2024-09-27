@@ -53,6 +53,22 @@ public class HospitalController {
         hospital.updatePatient(patientId, name, age, gender, diagnose, address, phone);
     }
 
+    //getPatientInfo
+    public void getPatientInfo(int patientId) {
+        Patient patient = hospital.getPatientInfo(patientId);
+        if (patient != null) {
+            System.out.println("Patient ID: " + patient.getPatientId());
+            System.out.println("Name: " + patient.getName());
+            System.out.println("Age: " + patient.getAge());
+            System.out.println("Gender: " + patient.getGender());
+            System.out.println("Diagnose: " + patient.getDiagnose());
+            System.out.println("Address: " + patient.getAddress());
+            System.out.println("Phone: " + patient.getPhone());
+        }else {
+            System.out.println("Not found");
+        }
+    }
+
     //delete
     public void deletePatient(int patientId) {
         hospital.deletePatient(patientId);
@@ -84,21 +100,7 @@ public class HospitalController {
         hospital.removePatientFromRoom(patientId, treatmentRoomId);
     }
 
-    //getPatientInfo
-    public void getPatientInfo(int patientId) {
-        Patient patient = hospital.getPatientInfo(patientId);
-        if (patient != null) {
-            System.out.println("Patient ID: " + patient.getPatientId());
-            System.out.println("Name: " + patient.getName());
-            System.out.println("Age: " + patient.getAge());
-            System.out.println("Gender: " + patient.getGender());
-            System.out.println("Diagnose: " + patient.getDiagnose());
-            System.out.println("Address: " + patient.getAddress());
-            System.out.println("Phone: " + patient.getPhone());
-        }else {
-            System.out.println("Not found");
-        }
-    }
+
 
     //getTreatmentRoomInfo
     public void getTreatmentRoomInfo(int treatmentRoomId) {
@@ -111,6 +113,10 @@ public class HospitalController {
         }else {
             System.out.println("Not found");
         }
+    }
+
+    public List<TreatmentRoom> getListRoom() {
+        return hospital.getTreatmentRoomList();
     }
 
     public List<Patient> getListPatient() {

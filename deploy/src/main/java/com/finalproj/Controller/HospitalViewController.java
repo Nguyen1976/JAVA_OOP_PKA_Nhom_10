@@ -1,5 +1,6 @@
 package com.finalproj.Controller;
 
+import com.finalproj.Utils.LogOut;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,14 +17,19 @@ public class HospitalViewController {
     private Button logoutBtn;
     @FXML
     private void changeSceneAddPatient(ActionEvent e) throws IOException {
-        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/finalproj/PatientView.fxml"));
-        Parent addPatientViewParent = loader.load();
-        Scene scene = new Scene(addPatientViewParent);
+        try {
+            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/finalproj/PatientView.fxml"));
+            Parent addPatientViewParent = loader.load();
+            Scene scene = new Scene(addPatientViewParent);
 
 
-        stage.setScene(scene);
+            stage.setScene(scene);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public void logout(ActionEvent e) throws IOException {

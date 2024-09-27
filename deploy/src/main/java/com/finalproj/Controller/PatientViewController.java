@@ -1,8 +1,8 @@
 package com.finalproj.Controller;
 
 import com.finalproj.Modal.Address;
-import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
+import com.finalproj.Utils.BackToHome;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +18,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PatientViewController implements Initializable {
+    @FXML
+    private TextField searchPatient;
     @FXML
     private Button backHomeBtn;
     @FXML
@@ -126,8 +128,8 @@ public class PatientViewController implements Initializable {
             // Xóa dữ liệu trong các trường nhập
             clearFields();
 
-        } catch (NumberFormatException ex) {
-            showAlert("Lỗi", "Tuổi phải là số hợp lệ");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -204,6 +206,38 @@ public class PatientViewController implements Initializable {
         }
     }
 
+    public void searchPatient(ActionEvent e) {
+        try {
+            if (searchPatient.getText().isEmpty()) {
+                // Nếu không có từ khóa tìm kiếm, hiển thị toàn bộ danh sách
+                showAlert("Lỗi", "Hãy nhập ID cần tìm kiếm");
+                infoPatient.setItems(patientList);
+                return;
+            }
+
+            Integer searchId = Integer.parseInt(searchPatient.getText());
+
+            // Tạo một danh sách tạm thời để lưu trữ các bệnh nhân phù hợp
+            ObservableList<Patient> filteredList = FXCollections.observableArrayList();
+
+            // Duyệt qua danh sách bệnh nhân và kiểm tra xem tên hoặc các thuộc tính khác có chứa từ khóa không
+            for (Patient patient : patientList) {
+                if(patient.getPatientId() == searchId) {
+                    filteredList.add(patient);
+                }
+            }
+            if(filteredList.isEmpty()) {
+                showAlert("Lỗi", "Không có bệnh nhân cần tìm kiếm");
+            } else {
+                // Cập nhật bảng với danh sách bệnh nhân đã lọc
+                infoPatient.setItems(filteredList);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //Quay về trang chủ
     public void backToHome(ActionEvent e) throws IOException {
         Stage currentStage = (Stage) backHomeBtn.getScene().getWindow();//Lấy ra cái cửa sổ hiện tại
         BackToHome backToHome = new BackToHome();
@@ -236,4 +270,5 @@ public class PatientViewController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

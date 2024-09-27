@@ -11,4 +11,6 @@ module com.finalproj.deploy {
     exports com.finalproj.Controller;
     exports com.finalproj.Modal;
     exports com.finalproj.View;
+    exports com.finalproj.Utils;
+    opens com.finalproj.Utils to javafx.fxml;
 }

@@ -177,6 +177,9 @@ public class Hospital {
         return patientsList;
     }
 
+    public List<TreatmentRoom> getTreatmentRoomList() {
+        return treatmentRoomList;
+    }
     public int getNextId() {
         return nextId;
     }
