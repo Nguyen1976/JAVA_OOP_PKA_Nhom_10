@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginController {
+public class LoginViewController {
     @FXML
     private TextField account;
     @FXML
@@ -42,14 +42,19 @@ public class LoginController {
 
     @FXML
     private void changeScene(ActionEvent e) throws IOException {
-        if(handleLogin()) {
-            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/com/finalproj/HospitalView.fxml"));
-            Parent hospitalViewParent = loader.load();
-            Scene scene = new Scene(hospitalViewParent);
+        try {
+            if(handleLogin()) {
+                Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/com/finalproj/HospitalView.fxml"));
+                Parent hospitalViewParent = loader.load();
+                Scene scene = new Scene(hospitalViewParent);
 
-            stage.setScene(scene);
+                stage.setScene(scene);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
         }
+
     }
 }

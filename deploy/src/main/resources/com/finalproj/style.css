@@ -7,9 +7,15 @@
     -fx-text-fill: #fff;
     -fx-background-color: #4ab54d;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .radio-button {
     -fx-text-fill:  #4ab54d;
      -fx-font-weight: bold;
+}
+
+
+#loginBtn {
+    -fx-padding: 10px 20px;
 }
