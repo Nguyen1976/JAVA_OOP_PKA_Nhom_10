@@ -42,7 +42,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.2.5 : getPatientListInRoom()
 
-![UML](./img/)
+![UML](./img/seqence5.png)
 
 ## Giao diện đầu tiên của dự án
 ![firstScreen](./img/firstScreen.png)
