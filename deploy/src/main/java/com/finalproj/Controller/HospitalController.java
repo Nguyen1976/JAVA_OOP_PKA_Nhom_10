@@ -115,6 +115,19 @@ public class HospitalController {
         }
     }
 
+    public void getPatientsInRoom(int roomId) {
+        List<Patient> patientsInRoom = hospital.getPatientsInRoom(roomId);
+
+        if(patientsInRoom.isEmpty()){
+            System.out.println("Not found");
+        }else {
+            System.out.println("Danh sach: ");
+            for (Patient patient : patientsInRoom) {
+                System.out.println("ID: " + patient.getPatientId() + ", Name " + patient.getName() + ", Diagnose: " + patient.getDiagnose());
+            }
+        }
+    }
+
     public List<TreatmentRoom> getListRoom() {
         return hospital.getTreatmentRoomList();
     }

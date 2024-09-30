@@ -170,7 +170,16 @@ public class Hospital {
 
 
 
-    //getListPatientFromRoom
+    //getListPatientsInRoom
+    public List<Patient> getPatientsInRoom(int roomId){
+        TreatmentRoom room = getRoomInfo(roomId);
+        if(room != null){
+            return room.getPatientsList();
+        }else {
+            return new ArrayList<>(); //danh sach rong
+        }
+    }
+
 
 
     public List<Patient> getPatientsList() {
