@@ -138,7 +138,7 @@ public class Hospital {
     public void assignPatientToRoom(int patientId, int roomId){
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
-        if(patient != null || treatmentRoom != null) {
+        if(patient != null && treatmentRoom != null) {
             System.out.println("Not found");
         }
 

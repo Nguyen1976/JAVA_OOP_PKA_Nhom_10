@@ -12,11 +12,16 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button layoutX="231.0" layoutY="141.0" mnemonicParsing="false" onAction="#changeSceneAddPatient" prefHeight="118.0" prefWidth="140.0" style="-fx-background-color: #0AB54D; -fx-font-weight: bold;" text="Bệnh nhân" textFill="WHITE">
+      <Button layoutX="101.0" layoutY="141.0" mnemonicParsing="false" onAction="#changeSceneAddPatient" prefHeight="118.0" prefWidth="140.0" style="-fx-background-color: #0AB54D; -fx-font-weight: bold;" text="Bệnh nhân" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
       <Button fx:id="logoutBtn" layoutX="492.0" layoutY="37.0" mnemonicParsing="false" onAction="#logout" text="Đăng xuất" />
+      <Button layoutX="346.0" layoutY="141.0" mnemonicParsing="false" onAction="#changeSceneRoom" prefHeight="118.0" prefWidth="140.0" style="-fx-background-color: #0AB54D; -fx-font-weight: bold;" text="Phòng điều trị" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

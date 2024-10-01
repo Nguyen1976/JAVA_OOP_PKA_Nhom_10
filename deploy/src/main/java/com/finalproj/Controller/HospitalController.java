@@ -115,7 +115,7 @@ public class HospitalController {
         }
     }
 
-    public void getPatientsInRoom(int roomId) {
+    public List<Patient> getPatientsInRoom(int roomId) {
         List<Patient> patientsInRoom = hospital.getPatientsInRoom(roomId);
 
         if(patientsInRoom.isEmpty()){
@@ -126,6 +126,7 @@ public class HospitalController {
                 System.out.println("ID: " + patient.getPatientId() + ", Name " + patient.getName() + ", Diagnose: " + patient.getDiagnose());
             }
         }
+        return patientsInRoom;
     }
 
     public List<TreatmentRoom> getListRoom() {
