@@ -169,7 +169,16 @@ public class Hospital {
     }
 
 
-    //getPatientListFromRoom
+
+    //getListPatientsInRoom
+    public List<Patient> getPatientsInRoom(int roomId){
+        TreatmentRoom room = getRoomInfo(roomId);
+        if(room != null){
+            return room.getPatientsList();
+        }else {
+            return new ArrayList<>(); //danh sach rong
+        }
+    }
 
 
 
@@ -180,6 +189,7 @@ public class Hospital {
     public List<TreatmentRoom> getTreatmentRoomList() {
         return treatmentRoomList;
     }
+
     public int getNextId() {
         return nextId;
     }
