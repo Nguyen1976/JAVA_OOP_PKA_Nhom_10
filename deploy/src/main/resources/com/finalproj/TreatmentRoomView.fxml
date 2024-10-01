@@ -2,26 +2,27 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.TreatmentRoomViewController">
+<AnchorPane prefHeight="400.0" prefWidth="601.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.TreatmentRoomViewController">
    <children>
       <Label layoutX="246.0" layoutY="26.0" text="Phòng điều trị">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TableView layoutY="200.0" prefHeight="200.0" prefWidth="600.0">
+      <TableView fx:id="tableViewRoom" layoutX="-1.0" layoutY="200.0" prefHeight="200.0" prefWidth="411.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="colIdRoom" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colNameRoom" prefWidth="135.2000274658203" text="Tên phòng" />
+            <TableColumn fx:id="colTypeRoom" prefWidth="121.59996032714844" text="Loại phòng" />
+            <TableColumn fx:id="colCapacity" prefWidth="76.0" text="Sức chứa" />
         </columns>
       </TableView>
-      <Label layoutX="54.0" layoutY="62.0" text="Nhập ID phòng" />
-      <TextField layoutX="151.0" layoutY="58.0" prefHeight="26.0" prefWidth="87.0" />
-      <Button layoutX="252.0" layoutY="58.0" mnemonicParsing="false" text="Tìm kiếm" />
+      <ListView fx:id="listViewRoom" layoutX="410.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="208.0" layoutY="162.0" mnemonicParsing="false" onAction="#displayListPatientsInRoom" text="Hiển thị danh sách bệnh nhân" />
    </children>
 </AnchorPane>

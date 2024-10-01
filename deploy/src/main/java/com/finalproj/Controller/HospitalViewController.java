@@ -32,6 +32,23 @@ public class HospitalViewController {
 
     }
 
+    @FXML
+    private void changeSceneRoom(ActionEvent e) throws IOException {
+        try {
+            Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/finalproj/TreatmentRoomView.fxml"));
+            Parent treatmentRoom = loader.load();
+            Scene scene = new Scene(treatmentRoom);
+
+
+            stage.setScene(scene);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     public void logout(ActionEvent e) throws IOException {
         Stage currentStage = (Stage) logoutBtn.getScene().getWindow();//Lấy ra cái cửa sổ hiện tại
         LogOut logout = new LogOut();
