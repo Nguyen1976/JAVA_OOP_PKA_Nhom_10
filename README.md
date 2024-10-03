@@ -48,7 +48,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 ![firstScreen](./img/firstScreen.png)
 
 ## Đăng Nhập
-[Đăng nhập](./img/logintxt.png)
+![Đăng nhập](./img/logintxt.png)
 
 ## GitHub Pages Dự Án
 [Truy cập dự án tại đây](https://nguyen1976.github.io/JAVA_OOP_PKA_Nhom_10/)
