@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 public class LoginViewController {
     @FXML
@@ -18,11 +20,33 @@ public class LoginViewController {
     @FXML
     private TextField password;
 
-    private final String ACCOUNT = "1";
-    private final String PASSWORD = "1";
+    private String ACCOUNT;
+    private String PASSWORD;
 
-    private boolean handleLogin() {
-        if(account.getText().equals(ACCOUNT) && password.getText().equals(PASSWORD)) {
+    // Đọc tài khoản và mật khẩu từ file trong package com.finalproj.datafiles
+    private void loadCredentials() throws IOException {
+        InputStream inputStream = getClass().getResourceAsStream("/com/finalproj/datafiles/credentials.txt");
+
+        if (inputStream == null) {
+            showAlert(Alert.AlertType.ERROR, "File không tìm thấy", "Không thể tìm thấy file credentials.txt.");
+        } else {
+            Scanner scanner = new Scanner(inputStream);
+            if (scanner.hasNextLine()) {
+                String[] credentials = scanner.nextLine().split(" ");
+                if (credentials.length == 2) {
+                    ACCOUNT = credentials[0];
+                    PASSWORD = credentials[1];
+                }
+            }
+            scanner.close();
+        }
+    }
+
+
+    // Kiểm tra đăng nhập
+    private boolean handleLogin() throws IOException {
+        loadCredentials();
+        if (account.getText().equals(ACCOUNT) && password.getText().equals(PASSWORD)) {
             // Đăng nhập thành công
             showAlert(Alert.AlertType.INFORMATION, "Đăng Nhập Thành Công", "Bạn đã đăng nhập thành công.");
             return true;
