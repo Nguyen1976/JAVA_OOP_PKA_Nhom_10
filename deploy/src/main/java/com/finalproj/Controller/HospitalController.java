@@ -52,7 +52,7 @@ public class HospitalController {
     //add new patient
     public void addPatient(String name, int age, String gender, String diagnose, Address address, String phone) {
         try{
-            Patient newPatient = new Patient(hospital.getNextId(),name, age, gender, diagnose, address, phone);
+            Patient newPatient = new Patient(hospital.getNextPatientId(),name, age, gender, diagnose, address, phone);
             hospital.addPatient(newPatient);
         }catch (Exception e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class HospitalController {
     //add new treatmentroom
     public void addTreatmentRoom(String roomName, String roomType, int capacity) {
         try {
-            TreatmentRoom newRoom = new TreatmentRoom(hospital.getNextId(), roomName, roomType, capacity, new ArrayList<>());
+            TreatmentRoom newRoom = new TreatmentRoom(hospital.getNextRoomId(), roomName, roomType, capacity, new ArrayList<>());
             hospital.addTreatmentRoom(newRoom);
         }catch (Exception e) {
             e.printStackTrace();

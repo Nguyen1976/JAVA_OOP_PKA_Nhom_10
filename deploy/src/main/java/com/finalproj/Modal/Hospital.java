@@ -7,12 +7,17 @@ import java.util.List;
 public class Hospital {
     List<Patient> patientsList;
     List<TreatmentRoom> treatmentRoomList;
-    private int nextId;
+    private int nextPatientId;
+    private int nextRoomId;
+
+
 
     public Hospital() {
         this.patientsList = new ArrayList<>();
         this.treatmentRoomList = new ArrayList<>();
-        this.nextId = 1;
+        this.nextPatientId = 1;
+        this.nextRoomId = 1;
+
     }
 
     //find Patient
@@ -47,9 +52,9 @@ public class Hospital {
     public void addPatient(Patient patient) {
         try {
             if(patient.getName().length() <=50){
-                patient.setPatientId(nextId);
+                patient.setPatientId(nextPatientId);
                 patientsList.add(patient);
-                nextId++;
+                nextPatientId++;
                 System.out.println("Da them benh nhan");
             }
         }catch (Exception e) {
@@ -103,18 +108,21 @@ public class Hospital {
     }
 
     //add treatmentRoom
-    public void addTreatmentRoom(TreatmentRoom treatmentRoom){
-        try{
-            if (treatmentRoom.getRoomName().length() < 25){
-                treatmentRoom.setRoomId(nextId);
+    public void addTreatmentRoom(TreatmentRoom treatmentRoom) {
+        try {
+            if (treatmentRoom != null && treatmentRoom.getRoomName() != null && treatmentRoom.getRoomName().length() < 25) {
+                treatmentRoom.setRoomId(nextRoomId);
                 treatmentRoomList.add(treatmentRoom);
-                nextId++;
+                nextRoomId++;
                 System.out.println("Da them phong benh");
+            } else {
+                System.out.println("Thong tin phong benh khong hop le.");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     //modify treatmentRoom
     public void updateTreatmentRoom(int treatmentRoomId, String roomName, String roomType, int capacity){
@@ -148,20 +156,25 @@ public class Hospital {
         }
     }
 
-    //Info treatmentRoom
-    public TreatmentRoom getRoomInfo(int roomId){
+    // Info treatmentRoom
+    public TreatmentRoom getRoomInfo(int roomId) {
+        if (treatmentRoomList == null || treatmentRoomList.isEmpty()) {
+            return null; // Trả về null nếu danh sách phòng chưa được khởi tạo hoặc rỗng
+        }
+
         return treatmentRoomList.stream()
                 .filter(treatmentRoom -> treatmentRoom.getRoomId() == roomId)
                 .findFirst()
                 .orElse(null);
     }
 
+
     public boolean comparePatientDiagnoseWithRoomType(int patientId, int roomId){
 
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
         try {
-            if (patient != null || treatmentRoom != null) {
+            if (patient == null || treatmentRoom == null) {
                 System.out.println("Not found");
                 return false;
             }
@@ -176,8 +189,13 @@ public class Hospital {
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
         try {
-            if(patient != null && treatmentRoom != null) {
+            if(patient == null ) {
                 System.out.println("Not found");
+                return;
+            }
+            if (treatmentRoom == null){
+                System.out.println("treatment not found");
+                return;
             }
 
             if(!treatmentRoom.isRoomFull() && comparePatientDiagnoseWithRoomType(patientId, roomId)){
@@ -197,7 +215,10 @@ public class Hospital {
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
         try {
-            if(patient != null || treatmentRoom != null) {
+            if(patient == null ) {
+                System.out.println("Not found");
+            }
+            if(treatmentRoom == null){
                 System.out.println("Not found");
             }
 
@@ -234,7 +255,11 @@ public class Hospital {
         return treatmentRoomList;
     }
 
-    public int getNextId() {
-        return nextId;
+    public int getNextPatientId() {
+        return nextPatientId;
+    }
+
+    public int getNextRoomId() {
+        return nextRoomId;
     }
 }
