@@ -1,86 +1,181 @@
 package com.finalproj.Controller;
 
+import com.finalproj.Modal.Address;
+import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
 import com.finalproj.Modal.TreatmentRoom;
+import com.finalproj.Utils.BackToHome;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class TreatmentRoomViewController {
+public class TreatmentRoomViewController extends HospitalController implements Initializable {
+    @FXML
+    private Button backHomeBtn;
     @FXML
     private TableView<TreatmentRoom> tableViewRoom;
-
     @FXML
     private TableColumn<TreatmentRoom, Integer> colIdRoom;
-
     @FXML
     private TableColumn<TreatmentRoom, String> colNameRoom;
-
     @FXML
     private TableColumn<TreatmentRoom, String> colTypeRoom;
-
     @FXML
     private TableColumn<TreatmentRoom, Integer> colCapacity;
 
     @FXML
-    private ListView<Patient> listViewRoom;
+    private TableView<Patient> infoPatient;
+    @FXML
+    private TableColumn<Patient, Integer> idCol;
+    @FXML
+    private TableColumn<Patient, String> nameCol;
+    @FXML
+    private TableColumn<Patient, Integer> ageCol;
+    @FXML
+    private TableColumn<Patient, String> genderCol;
+    @FXML
+    private TableColumn<Patient, String> addressCol;
+    @FXML
+    private TableColumn<Patient, String> phoneCol;
+    @FXML
+    private TableColumn<Patient, String> diagnoseCol;
+
+    @FXML
+    private  TextField searchRoomtxt;
+
+
 
     // Dữ liệu giả lập cho phòng điều trị
     private ObservableList<TreatmentRoom> roomList;
-
+    private ObservableList<Patient> patientList;
     private ObservableList<Patient> listPatientInRoom;
 
-    HospitalController hospitalController = new HospitalController();
+    private HospitalController hospitalController;
 
+    public TreatmentRoomViewController() {
+        this.hospitalController = HospitalController.getInstance();
+    }
 
     @FXML
-    public void initialize() {
-        roomList = FXCollections.observableArrayList();
-        listPatientInRoom = FXCollections.observableArrayList();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+            roomList = FXCollections.observableArrayList();
+            patientList = FXCollections.observableArrayList();
 
-        // Khởi tạo các giá trị cho TableColumn từ đối tượng Room
-        colIdRoom.setCellValueFactory(new PropertyValueFactory<>("roomId"));
-        colNameRoom.setCellValueFactory(new PropertyValueFactory<>("roomName"));
-        colTypeRoom.setCellValueFactory(new PropertyValueFactory<>("roomType"));
-        colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+            // Khởi tạo các giá trị cho TableColumn từ đối tượng Room
+            colIdRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("roomId"));
+            colNameRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomName"));
+            colTypeRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomType"));
+            colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("capacity"));
 
-        hospitalController.addTreatmentRoom("name", "name", 50);
-        hospitalController.assignPatientToRoom(1, 1);
+            hospitalController.addTreatmentRoom("phòng điều trị", "khám", 30);
+            roomList.addAll(hospitalController.getListRoom());
+            tableViewRoom.setItems(roomList);
 
-        roomList.addAll(hospitalController.getListRoom());
 
 
-        // Gán dữ liệu cho TableView và ListView
-        tableViewRoom.setItems(roomList);
+
+            patientList = FXCollections.observableArrayList();
+
+
+            //Cài đặt các cột cho bảng
+            idCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("patientId"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
+            ageCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("age"));
+            genderCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("gender"));
+            addressCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
+            phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
+            diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
+
+            patientList.addAll(hospitalController.getListPatient());
+
+            infoPatient.setItems(patientList);
     }
 
-    public void displayListPatientsInRoom(ActionEvent e) {
-        TreatmentRoom selected = tableViewRoom.getSelectionModel().getSelectedItem();
+    @FXML
+    public void displayAllPatient(ActionEvent e) {
+        patientList = FXCollections.observableArrayList();
 
-        if(selected != null) {
-            // Xóa danh sách cũ trong listPatientInRoom để tránh trùng lặp dữ liệu
-            listPatientInRoom.clear();
+        patientList.addAll(hospitalController.getListPatient());
 
-            // Lấy danh sách bệnh nhân từ phòng được chọn
-            List<Patient> patientsInRoom = hospitalController.getPatientsInRoom(selected.getRoomId());
+        infoPatient.setItems(patientList);
+    }
 
+    public void displayPatientInRoom(ActionEvent e) {
+        TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
+        if(treatmentSelect != null) {
 
-            // Thêm các đối tượng bệnh nhân vào ObservableList<Patient>
-            listPatientInRoom.addAll(patientsInRoom);
+            patientList = FXCollections.observableArrayList();
+
+            patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
+
+            infoPatient.setItems(patientList);
+        } else {
+            showAlert("Lỗi", "Hãy chọn phòng bệnh");
         }
-        listViewRoom.setItems(listPatientInRoom);
+    }
 
+    public void addPatienToRoom(ActionEvent e) {
+        Patient patientSelect = infoPatient.getSelectionModel().getSelectedItem();
+        TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
+        if (patientSelect != null && treatmentSelect != null) {
+            hospitalController.assignPatientToRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
+        } else {
+            showAlert("Lỗi", "Hãy chọn bệnh nhân và phòng bệnh cần thêm");
+        }
 
     }
 
+    public void searchRoom(ActionEvent e) {
+        roomList = FXCollections.observableArrayList();
+        int roomId = Integer.parseInt(searchRoomtxt.getText());
+        if(hospitalController.findTreatmentRoom(roomId) != null) {
+            roomList.add(hospitalController.findTreatmentRoom(roomId));
+            tableViewRoom.setItems(roomList);
+        } else {
+            showAlert("", "Không tìm thấy phòng điều trị");
+        }
+    }
 
+    public void displayAllRoom(ActionEvent e) {
+        roomList = FXCollections.observableArrayList();
+        try {
+            roomList.addAll(hospitalController.getListRoom());
+            tableViewRoom.setItems(roomList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    //Quay về trang chủ
+    public void backToHome(ActionEvent e) throws IOException {
+        Stage currentStage = (Stage) backHomeBtn.getScene().getWindow();//Lấy ra cái cửa sổ hiện tại
+        BackToHome backToHome = new BackToHome();
+        try {
+            backToHome.goToHome(currentStage);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    // Hàm hiển thị thông báo lỗi
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 }

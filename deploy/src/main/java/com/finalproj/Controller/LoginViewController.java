@@ -16,8 +16,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.InputStream;
-import java.util.Scanner;
+//import java.io.InputStream;
+//import java.util.Scanner;
 
 public class LoginViewController {
     @FXML
@@ -46,6 +46,7 @@ public class LoginViewController {
 //            scanner.close();
 //        }
 //    }
+
     private boolean handleLogin() {
         String inputAccount = account.getText();
         String inputPassword = password.getText();

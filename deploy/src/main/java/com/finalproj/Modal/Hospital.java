@@ -173,14 +173,10 @@ public class Hospital {
 
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
-        try {
             if (patient == null || treatmentRoom == null) {
                 System.out.println("Not found");
                 return false;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return patient.getDiagnose().equalsIgnoreCase(treatmentRoom.getRoomType());
     }
@@ -190,7 +186,7 @@ public class Hospital {
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
         try {
             if(patient == null ) {
-                System.out.println("Not found");
+                System.out.println("patient Not found");
                 return;
             }
             if (treatmentRoom == null){
@@ -198,10 +194,13 @@ public class Hospital {
                 return;
             }
 
-            if(!treatmentRoom.isRoomFull() && comparePatientDiagnoseWithRoomType(patientId, roomId)){
+//             && comparePatientDiagnoseWithRoomType(patientId, roomId)
+            if(!treatmentRoom.isRoomFull()){
                 treatmentRoom.getPatientsList().add(patient);
                 System.out.println("Patient assign TreatmentRoom");
             }else {
+                System.out.println(!treatmentRoom.isRoomFull());
+                System.out.println(comparePatientDiagnoseWithRoomType(patientId, roomId));
                 System.out.println("Can not assign patient to room");
             }
         }catch (Exception e) {
