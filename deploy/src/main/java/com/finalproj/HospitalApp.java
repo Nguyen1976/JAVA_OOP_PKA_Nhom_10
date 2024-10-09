@@ -21,6 +21,7 @@ public class HospitalApp {
             System.out.println("7. Xóa phòng điều trị");
             System.out.println("8. Gán bệnh nhân vào phòng điều trị");
             System.out.println("9. Xóa bệnh nhân khỏi phòng điều trị");
+            System.out.println("10. Xem danh sách bệnh nhân từ phòng điều trị");
             System.out.println("0. Thoát");
             System.out.print("Vui lòng chọn chức năng: ");
 
@@ -143,7 +144,12 @@ public class HospitalApp {
                     int roomIdRemove = scanner.nextInt();
                     controller.removePatientFromRoom(patientIdRemove, roomIdRemove);
                     break;
-
+                case 10:
+                    System.out.println("In danh sách bệnh nhân trong phòng điều trị");
+                    System.out.println("Nhập id từ phòng điều trị");
+                    int ID = scanner.nextInt();
+                    controller.getPatientsInRoom(ID);
+                    break;
                 case 0:
                     System.out.println("Thoát chương trình.");
                     scanner.close();

@@ -1,6 +1,7 @@
 module com.finalproj.deploy {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.finalproj.Controller to javafx.fxml;

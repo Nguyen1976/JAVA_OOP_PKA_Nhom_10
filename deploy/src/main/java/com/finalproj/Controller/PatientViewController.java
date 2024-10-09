@@ -1,6 +1,7 @@
 package com.finalproj.Controller;
 
 import com.finalproj.Modal.Address;
+import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
 import com.finalproj.Utils.BackToHome;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PatientViewController implements Initializable {
+public class PatientViewController extends HospitalController implements Initializable {
     @FXML
     private TextField searchPatient;
     @FXML
@@ -58,9 +59,16 @@ public class PatientViewController implements Initializable {
     // Thêm nhóm ToggleGroup để xử lý lựa chọn giới tính
     private ToggleGroup genderGroup;
 
-    HospitalController hospitalController = new HospitalController();
+
+//    HospitalController hospitalController = new HospitalController();
 
     private ObservableList<Patient> patientList;
+
+    private HospitalController hospitalController;
+
+    public PatientViewController() {
+        this.hospitalController = HospitalController.getInstance();
+    }
 
 
     @Override
@@ -76,9 +84,9 @@ public class PatientViewController implements Initializable {
         addressCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
         diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
-
         Address address = new Address("city", "district");
         hospitalController.addPatient("name", 18, "Nam", "diagnose", address, "phone");
+
 
         patientList.addAll(hospitalController.getListPatient());
 
@@ -248,6 +256,8 @@ public class PatientViewController implements Initializable {
         }
     }
 
+
+
     //---------------Method dùng chung-------------------------------
 
     // Hàm để xóa các trường nhập sau khi thêm bệnh nhân
@@ -270,5 +280,4 @@ public class PatientViewController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

@@ -7,7 +7,15 @@ import java.util.List;
 
 public class HospitalController {
     private Hospital hospital;
+    private static HospitalController instance;
 
+    // Phương thức để lấy thể hiện
+    public static HospitalController getInstance() {
+        if (instance == null) {
+            instance = new HospitalController();
+        }
+        return instance;
+    }
 
     public HospitalController(Hospital hospital) {
         this.hospital = hospital;

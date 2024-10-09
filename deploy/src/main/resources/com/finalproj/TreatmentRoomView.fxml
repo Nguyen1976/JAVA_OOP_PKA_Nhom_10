@@ -2,19 +2,19 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="601.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.TreatmentRoomViewController">
+<AnchorPane prefHeight="452.0" prefWidth="898.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.TreatmentRoomViewController">
    <children>
-      <Label layoutX="246.0" layoutY="26.0" text="Phòng điều trị">
+      <Label layoutX="690.0" layoutY="25.0" text="Phòng điều trị">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TableView fx:id="tableViewRoom" layoutX="-1.0" layoutY="200.0" prefHeight="200.0" prefWidth="411.0">
+      <TableView fx:id="tableViewRoom" layoutY="252.0" prefHeight="200.0" prefWidth="582.0">
         <columns>
           <TableColumn fx:id="colIdRoom" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colNameRoom" prefWidth="135.2000274658203" text="Tên phòng" />
@@ -22,7 +22,23 @@
             <TableColumn fx:id="colCapacity" prefWidth="76.0" text="Sức chứa" />
         </columns>
       </TableView>
-      <ListView fx:id="listViewRoom" layoutX="410.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="208.0" layoutY="162.0" mnemonicParsing="false" onAction="#displayListPatientsInRoom" text="Hiển thị danh sách bệnh nhân" />
+      <Button layoutX="635.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayAllPatient" text="Hiển thị danh sách tất cả bệnh nhân" />
+      <TableView fx:id="infoPatient" layoutY="33.0" prefHeight="220.0" prefWidth="582.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="115.20001220703125" text="Tên bệnh nhân" />
+            <TableColumn fx:id="ageCol" prefWidth="35.20001220703125" text="Tuổi" />
+            <TableColumn fx:id="genderCol" prefWidth="75.0" text="Giới tính" />
+            <TableColumn fx:id="addressCol" prefWidth="75.0" text="Địa chỉ" />
+            <TableColumn fx:id="phoneCol" prefWidth="75.0" text="Số điện thoại" />
+            <TableColumn fx:id="diagnoseCol" prefWidth="128.80002441406248" text="Bệnh án" />
+        </columns>
+      </TableView>
+      <Button fx:id="backHomeBtn" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#backToHome" text="&lt;" />
+      <Button layoutX="641.0" layoutY="131.0" mnemonicParsing="false" onAction="#addPatienToRoom" text="Thêm bệnh nhân vào phòng bệnh" />
+      <Button layoutX="599.0" layoutY="191.0" mnemonicParsing="false" onAction="#displayPatientInRoom" text="Hiển thị danh sách bệnh nhân trong phòng bệnh" />
+      <Button layoutX="776.0" layoutY="327.0" mnemonicParsing="false" onAction="#searchRoom" text="Tìm phòng" />
+      <TextField fx:id="searchRoomtxt" layoutX="607.0" layoutY="327.0" />
+      <Button layoutX="677.0" layoutY="241.0" mnemonicParsing="false" onAction="#displayAllRoom" text="Hiển thị tất cả phòng" />
    </children>
 </AnchorPane>
