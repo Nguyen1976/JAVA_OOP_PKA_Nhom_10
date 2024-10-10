@@ -181,17 +181,27 @@ public class Hospital {
         return patient.getDiagnose().equalsIgnoreCase(treatmentRoom.getRoomType());
     }
 
-    public void assignPatientToRoom(int patientId, int roomId){
+    public boolean assignPatientToRoom(int patientId, int roomId) {
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
+
         try {
             if(patient == null ) {
                 System.out.println("patient Not found");
-                return;
+                return false;
             }
             if (treatmentRoom == null){
                 System.out.println("treatment not found");
-                return;
+                return false;
+            }
+            List<Patient> listPatientInRoom = treatmentRoom.getPatientsList();
+
+            // Kiểm tra nếu bệnh nhân đã có trong phòng
+            for (Patient p : listPatientInRoom) {
+                if (p.getPatientId() == patientId) {
+                    System.out.println("The patient is already in the room.");
+                    return false;
+                }
             }
 
 //             && comparePatientDiagnoseWithRoomType(patientId, roomId)
@@ -206,6 +216,8 @@ public class Hospital {
         }catch (Exception e) {
             e.printStackTrace();
         }
+
+        return true;
     }
 
 

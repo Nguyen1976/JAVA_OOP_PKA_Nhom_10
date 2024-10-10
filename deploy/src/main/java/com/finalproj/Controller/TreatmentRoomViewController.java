@@ -128,19 +128,58 @@ public class TreatmentRoomViewController extends HospitalController implements I
         Patient patientSelect = infoPatient.getSelectionModel().getSelectedItem();
         TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
         if (patientSelect != null && treatmentSelect != null) {
-            hospitalController.assignPatientToRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
+            boolean isAssignPatientToRoom = hospitalController.assignPatientToRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
+
+            if(isAssignPatientToRoom) {
+                //Hiển thị danh sách bệnh nhân trong phòng vừa thêm
+                patientList = FXCollections.observableArrayList();
+                patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
+                infoPatient.setItems(patientList);
+            } else {
+                showAlert("Lỗi", "Đã có bệnh nhân trong phòng bệnh");
+            }
         } else {
             showAlert("Lỗi", "Hãy chọn bệnh nhân và phòng bệnh cần thêm");
         }
 
     }
 
+    public void deletePatienToRoom(ActionEvent e) {
+        Patient patientSelect = infoPatient.getSelectionModel().getSelectedItem();
+        TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
+
+        if (patientSelect != null && treatmentSelect != null) {
+            hospitalController.removePatientFromRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
+
+            //Hiển thị danh sách bệnh nhân trong phòng vừa xóa
+            patientList = FXCollections.observableArrayList();
+            patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
+            infoPatient.setItems(patientList);
+        } else {
+            showAlert("Lỗi", "Hãy chọn bệnh nhân cần xóa khỏi phòng bệnh");
+        }
+    }
+
     public void searchRoom(ActionEvent e) {
+        String roomtxt = searchRoomtxt.getText();
+
+        // Kiểm tra nếu ô nhập không có giá trị
+        if (roomtxt.isEmpty()) {
+            showAlert("Lỗi", "Vui lòng nhập mã phòng để tìm kiếm");
+            return;
+        }
+
         roomList = FXCollections.observableArrayList();
-        int roomId = Integer.parseInt(searchRoomtxt.getText());
+        int roomId = Integer.parseInt(roomtxt);
         if(hospitalController.findTreatmentRoom(roomId) != null) {
             roomList.add(hospitalController.findTreatmentRoom(roomId));
             tableViewRoom.setItems(roomList);
+
+            //Hiển thị danh sách bệnh nhân trong phòng vừa tìm kiếm
+            patientList = FXCollections.observableArrayList();
+
+            patientList.addAll(hospitalController.getPatientsInRoom(roomId));
+            infoPatient.setItems(patientList);
         } else {
             showAlert("", "Không tìm thấy phòng điều trị");
         }
