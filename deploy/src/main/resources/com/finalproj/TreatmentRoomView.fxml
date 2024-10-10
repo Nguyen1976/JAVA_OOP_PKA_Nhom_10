@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="452.0" prefWidth="898.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproj.Controller.TreatmentRoomViewController">
    <children>
-      <Label layoutX="690.0" layoutY="25.0" text="Phòng điều trị">
+      <Label layoutX="691.0" layoutY="13.0" text="Phòng điều trị">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -22,8 +22,8 @@
             <TableColumn fx:id="colCapacity" prefWidth="76.0" text="Sức chứa" />
         </columns>
       </TableView>
-      <Button layoutX="635.0" layoutY="74.0" mnemonicParsing="false" onAction="#displayAllPatient" text="Hiển thị danh sách tất cả bệnh nhân" />
-      <TableView fx:id="infoPatient" layoutY="33.0" prefHeight="220.0" prefWidth="582.0">
+      <Button layoutX="658.0" layoutY="58.0" mnemonicParsing="false" onAction="#displayAllPatient" text="Hiển thị tất cả bệnh nhân" />
+      <TableView fx:id="infoPatient" layoutY="-1.0" prefHeight="254.0" prefWidth="582.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="nameCol" prefWidth="115.20001220703125" text="Tên bệnh nhân" />
@@ -34,11 +34,13 @@
             <TableColumn fx:id="diagnoseCol" prefWidth="128.80002441406248" text="Bệnh án" />
         </columns>
       </TableView>
-      <Button fx:id="backHomeBtn" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" onAction="#backToHome" text="&lt;" />
-      <Button layoutX="641.0" layoutY="131.0" mnemonicParsing="false" onAction="#addPatienToRoom" text="Thêm bệnh nhân vào phòng bệnh" />
-      <Button layoutX="599.0" layoutY="191.0" mnemonicParsing="false" onAction="#displayPatientInRoom" text="Hiển thị danh sách bệnh nhân trong phòng bệnh" />
-      <Button layoutX="776.0" layoutY="327.0" mnemonicParsing="false" onAction="#searchRoom" text="Tìm phòng" />
-      <TextField fx:id="searchRoomtxt" layoutX="607.0" layoutY="327.0" />
-      <Button layoutX="677.0" layoutY="241.0" mnemonicParsing="false" onAction="#displayAllRoom" text="Hiển thị tất cả phòng" />
+      <Button fx:id="backHomeBtn" layoutX="595.0" layoutY="13.0" mnemonicParsing="false" onAction="#backToHome" text="&lt;" />
+      <Button layoutX="634.0" layoutY="158.0" mnemonicParsing="false" onAction="#addPatienToRoom" text="Thêm bệnh nhân vào phòng bệnh" />
+      <Button layoutX="600.0" layoutY="214.0" mnemonicParsing="false" onAction="#displayPatientInRoom" text="Hiển thị danh sách bệnh nhân trong phòng bệnh" />
+      <Button layoutX="766.0" layoutY="396.0" mnemonicParsing="false" onAction="#searchRoom" text="Tìm phòng" />
+      <TextField fx:id="searchRoomtxt" layoutX="607.0" layoutY="396.0" />
+      <Button layoutX="670.0" layoutY="107.0" mnemonicParsing="false" onAction="#displayAllRoom" text="Hiển thị tất cả phòng" />
+      <Button layoutX="637.0" layoutY="266.0" mnemonicParsing="false" onAction="#deletePatienToRoom" text="Xóa bệnh nhân khỏi phòng bệnh" />
+      <Label layoutX="607.0" layoutY="371.0" text="Nhập vào id phòng muốn tìm" />
    </children>
 </AnchorPane>

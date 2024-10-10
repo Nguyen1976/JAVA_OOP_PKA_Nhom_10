@@ -122,9 +122,18 @@ public class PatientViewController extends HospitalController implements Initial
             return;
         }
 
+        if(!isInteger(ageText)) {
+            showAlert("Lỗi", "Tuổi phải là số");
+            return;
+        }
+
+
+
 
         try {
             int age = Integer.parseInt(ageText); // Chuyển đổi tuổi thành số
+
+
 
             //Thêm bệnh nhân vào arraylisst
             hospitalController.addPatient(name, age, gender, diagnose, address, phone);
@@ -259,6 +268,15 @@ public class PatientViewController extends HospitalController implements Initial
 
 
     //---------------Method dùng chung-------------------------------
+    // Phương thức kiểm tra nếu chuỗi là số nguyên
+    private boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true; // Nếu chuyển đổi thành công, chuỗi là số nguyên
+        } catch (NumberFormatException e) {
+            return false; // Nếu có lỗi, chuỗi không phải là số nguyên
+        }
+    }
 
     // Hàm để xóa các trường nhập sau khi thêm bệnh nhân
     private void clearFields() {

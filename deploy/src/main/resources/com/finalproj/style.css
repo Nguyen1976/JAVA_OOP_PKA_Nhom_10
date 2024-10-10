@@ -19,3 +19,11 @@
 #loginBtn {
     -fx-padding: 10px 20px;
 }
+
+#btnPatient {
+    -fx-padding: 40px 20px
+}
+
+#btnRoom {
+    -fx-padding: 40px 10px
+}

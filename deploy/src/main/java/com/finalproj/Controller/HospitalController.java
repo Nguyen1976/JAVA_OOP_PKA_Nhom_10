@@ -135,12 +135,18 @@ public class HospitalController {
     }
 
     //assign patient to room
-    public  void assignPatientToRoom(int patientId, int treatmentRoomId) {
+    public boolean assignPatientToRoom(int patientId, int treatmentRoomId) {
         try {
-            hospital.assignPatientToRoom(patientId, treatmentRoomId);
+            boolean isAssignPatientToRoom = hospital.assignPatientToRoom(patientId, treatmentRoomId);
+            if (isAssignPatientToRoom) {
+                return isAssignPatientToRoom;
+            } else {
+                return false;
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     //remove patient from room
