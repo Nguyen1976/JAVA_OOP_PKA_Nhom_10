@@ -1,7 +1,15 @@
 package com.finalproj.Modal;
 
+import com.finalproj.JDBCConnection.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.finalproj.JDBCConnection.DBConnection.getConnection;
 
 
 public class Hospital {
@@ -22,11 +30,24 @@ public class Hospital {
 
     //find Patient
     public Patient findPatient(int patientId) {
-        try{
-            for (Patient patient : patientsList) {
-                if (patient.getPatientId() == patientId) {
-                    return patient;
-                }
+        String query = "SELECT * FROM Patient WHERE patientId = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, patientId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt("age");
+                String gender = resultSet.getString("gender");
+                String diagnose = resultSet.getString("diagnose");
+                String city = resultSet.getString("city");
+                String district = resultSet.getString("district");
+                String phone = resultSet.getString("phone");
+
+                Address address = new Address(city, district);
+                return new Patient(patientId, name, age, gender, diagnose, address, phone);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,46 +57,98 @@ public class Hospital {
 
     //find treatmentRoom
     public TreatmentRoom findTreatmentRoom(int treatmentRoomId) {
-        try{
-            for (TreatmentRoom treatmentRoom : treatmentRoomList) {
-                if (treatmentRoom.getRoomId() == treatmentRoomId) {
-                    return treatmentRoom;
+        String query = "SELECT * FROM treatmentRoom WHERE roomId = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, treatmentRoomId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                TreatmentRoom treatmentRoom = new TreatmentRoom();
+                treatmentRoom.setRoomId(resultSet.getInt("roomId"));
+                treatmentRoom.setRoomName(resultSet.getString("roomName"));
+                treatmentRoom.setRoomType(resultSet.getString("roomType"));
+                treatmentRoom.setCapacity(resultSet.getInt("capacity"));
+                String patientsListString = resultSet.getString("patientsList");
+
+                // Sử dụng split để phân chia thành mảng chuỗi
+                String[] patientNamesArray = patientsListString.split(",");
+
+                // Chuyển đổi mảng chuỗi thành List<Patient>
+                List<Patient> patientsList = new ArrayList<>();
+                for (String name : patientNamesArray) {
+                    // Tạo đối tượng Patient cho mỗi tên (giả sử Patient chỉ có thuộc tính name)
+                    Patient patient = new Patient();
+                    patient.setName(name.trim()); // Trim để loại bỏ các khoảng trắng dư thừa
+                    patientsList.add(patient);
                 }
+
+                // Đặt danh sách bệnh nhân vào đối tượng treatmentRoom
+                treatmentRoom.setPatientsList(patientsList);
+
+                return treatmentRoom;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     //add patient
     public void addPatient(Patient patient) {
-        try {
-            if(patient.getName().length() <=50){
-                patient.setPatientId(nextPatientId);
-                patientsList.add(patient);
-                nextPatientId++;
-                System.out.println("Da them benh nhan");
+        String query = "INSERT INTO Patient (name, age, gender, diagnose, city, district, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            if (patient.getName().length() <= 50) {
+                preparedStatement.setString(1, patient.getName());
+                preparedStatement.setInt(2, patient.getAge());
+                preparedStatement.setString(3, patient.getGender());
+                preparedStatement.setString(4, patient.getDiagnose());
+                preparedStatement.setString(5, patient.getAddress().getCity());
+                preparedStatement.setString(6, patient.getAddress().getDistrict());
+                preparedStatement.setString(7, patient.getPhone());
+
+                //tạo biến cập nhật bản ghi bị ảnh hưởng bởi SQL
+                int updatedRecordsCount = preparedStatement.executeUpdate();
+                if (updatedRecordsCount > 0) {
+                    System.out.println("Da them benh nhan.");
+                } else {
+                    System.out.println("Them benh nhan that bai.");
+                }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //modify patient
     public void updatePatient(int patientId, String newName, int age, String gender, String diagnose, Address address, String phone) {
-        try{
+        String query = "UPDATE Patient SET name = ?, age = ?, gender = ?, diagnose = ?, city = ?, district = ?, phone = ? WHERE patientId = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             Patient updatePatient = findPatient(patientId);
-            if(updatePatient != null) {
-                updatePatient.setName(newName);
-                updatePatient.setAge(age);
-                updatePatient.setGender(gender);
-                updatePatient.setDiagnose(diagnose);
-                updatePatient.setAddress(address);
-                updatePatient.setPhone(phone);
-                System.out.println("Da sua benh nhan");
-            }
-            else {
+            if (updatePatient != null) {
+                preparedStatement.setString(1, newName);
+                preparedStatement.setInt(2, age);
+                preparedStatement.setString(3, gender);
+                preparedStatement.setString(4, diagnose);
+                preparedStatement.setString(5, address.getCity());
+                preparedStatement.setString(6, address.getDistrict());
+                preparedStatement.setString(7, phone);
+                preparedStatement.setInt(8, patientId);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Da sua benh nhan.");
+                } else {
+                    System.out.println("Sua benh nhan that bai.");
+                }
+            } else {
                 System.out.println("Khong tim thay benh nhan co id: " + patientId);
             }
         } catch (Exception e) {
@@ -85,16 +158,24 @@ public class Hospital {
 
     //delete Patient
     public void deletePatient(int patientId) {
-        try{
+        String query = "DELETE FROM Patient WHERE patientId = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             Patient deletePatient = findPatient(patientId);
-            if(deletePatient != null) {
-                patientsList.remove(deletePatient);
-                System.out.println("Da xoa");
+            if (deletePatient != null) {
+                preparedStatement.setInt(1, patientId);
+
+                int updatedRecordsCount = preparedStatement.executeUpdate();
+                if (updatedRecordsCount > 0) {
+                    System.out.println("Da xoa benh nhan.");
+                } else {
+                    System.out.println("Xoa benh nhan that bai.");
+                }
+            } else {
+                System.out.println("Khong tim thay benh nhan co ID " + patientId);
             }
-            else {
-                System.out.println("Khong tim thay benh nhan co ID" + patientId);
-            }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -109,16 +190,27 @@ public class Hospital {
 
     //add treatmentRoom
     public void addTreatmentRoom(TreatmentRoom treatmentRoom) {
-        try {
+        String query = "INSERT INTO treatmentRoom (roomName, roomType, capacity, patientsList) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             if (treatmentRoom != null && treatmentRoom.getRoomName() != null && treatmentRoom.getRoomName().length() < 25) {
-                treatmentRoom.setRoomId(nextRoomId);
-                treatmentRoomList.add(treatmentRoom);
-                nextRoomId++;
-                System.out.println("Da them phong benh");
+                preparedStatement.setString(1, treatmentRoom.getRoomName());
+                preparedStatement.setString(2, treatmentRoom.getRoomType());
+                preparedStatement.setInt(3, treatmentRoom.getCapacity());
+                preparedStatement.setString(4, treatmentRoom.getPatientsList().toString());
+
+                int affectedRowsCount = preparedStatement.executeUpdate();
+                if (affectedRowsCount > 0) {
+                    System.out.println("Đã thêm phòng bệnh.");
+                } else {
+                    System.out.println("Thêm phòng bệnh thất bại.");
+                }
             } else {
-                System.out.println("Thong tin phong benh khong hop le.");
+                System.out.println("Thông tin phòng bệnh không hợp lệ.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -126,32 +218,53 @@ public class Hospital {
 
     //modify treatmentRoom
     public void updateTreatmentRoom(int treatmentRoomId, String roomName, String roomType, int capacity){
-        try{
+        String query = "UPDATE treatmentRoom SET roomName = ?, roomType = ?, capacity = ? WHERE roomId = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             TreatmentRoom updateTreatmentRoom = findTreatmentRoom(treatmentRoomId);
-            if(updateTreatmentRoom != null){
-                updateTreatmentRoom.setRoomName(roomName);
-                updateTreatmentRoom.setRoomType(roomType);
-                updateTreatmentRoom.setCapacity(capacity);
-                System.out.println("Da sua");
-            }else {
-                System.out.println("Khong tim thay phong benh voi id: " + treatmentRoomId);
+            if (updateTreatmentRoom != null) {
+                preparedStatement.setString(1, roomName);
+                preparedStatement.setString(2, roomType);
+                preparedStatement.setInt(3, capacity);
+                preparedStatement.setInt(4, treatmentRoomId);
+
+                int affectedRowsCount = preparedStatement.executeUpdate();
+                if (affectedRowsCount > 0) {
+                    System.out.println("Đã sửa phòng bệnh.");
+                } else {
+                    System.out.println("Sửa phòng bệnh thất bại.");
+                }
+            } else {
+                System.out.println("Không tìm thấy phòng bệnh với ID: " + treatmentRoomId);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     //delete treatmentRoom
     public void deleteTreatmentRoom(int treatmentRoomId){
-        try {
+        String query = "DELETE FROM treatmentRoom WHERE roomId = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             TreatmentRoom deleteTreatmentRoom = findTreatmentRoom(treatmentRoomId);
-            if(deleteTreatmentRoom != null){
-                treatmentRoomList.remove(deleteTreatmentRoom);
-                System.out.println("Da xoa");
-            }else {
-                System.out.println("Khong tim thay phong benh voi id: " + treatmentRoomId);
+            if (deleteTreatmentRoom != null) {
+                preparedStatement.setInt(1, treatmentRoomId);
+
+                int affectedRowsCount = preparedStatement.executeUpdate();
+                if (affectedRowsCount > 0) {
+                    System.out.println("Đã xóa phòng bệnh.");
+                } else {
+                    System.out.println("Xóa phòng bệnh thất bại.");
+                }
+            } else {
+                System.out.println("Không tìm thấy phòng bệnh với ID: " + treatmentRoomId);
             }
-        }catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -173,10 +286,10 @@ public class Hospital {
 
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
-            if (patient == null || treatmentRoom == null) {
-                System.out.println("Not found");
-                return false;
-            }
+        if (patient == null || treatmentRoom == null) {
+            System.out.println("Not found");
+            return false;
+        }
 
         return patient.getDiagnose().equalsIgnoreCase(treatmentRoom.getRoomType());
     }
@@ -252,11 +365,17 @@ public class Hospital {
         if(room != null){
             return room.getPatientsList();
         }else {
-            return new ArrayList<>(); //danh sach rong
+            return new ArrayList<>();
         }
     }
 
+    public void setPatientsList(List<Patient> patientsList) {
+        this.patientsList = patientsList;
+    }
 
+    public void setTreatmentRoomList(List<TreatmentRoom> treatmentRoomList) {
+        this.treatmentRoomList = treatmentRoomList;
+    }
 
     public List<Patient> getPatientsList() {
         return patientsList;

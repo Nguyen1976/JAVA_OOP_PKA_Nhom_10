@@ -1,5 +1,6 @@
 package com.finalproj.Controller;
 
+import com.finalproj.JDBCConnection.PatientDAO;
 import com.finalproj.Modal.*;
 
 import java.util.ArrayList;
@@ -8,6 +9,8 @@ import java.util.List;
 public class HospitalController {
     private Hospital hospital;
     private static HospitalController instance;
+    private PatientDAO patientDao;  // Thêm đối tượng PatientDao để tương tác với DB
+
 
     // Phương thức để lấy thể hiện
     public static HospitalController getInstance() {
@@ -17,13 +20,24 @@ public class HospitalController {
         return instance;
     }
 
+    // Constructor khởi tạo HospitalController
     public HospitalController(Hospital hospital) {
         this.hospital = hospital;
+        this.patientDao = new PatientDAO();  // Khởi tạo PatientDao
+        initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
+    }
+
+    // Phương thức lấy danh sách bệnh nhân từ DB và truyền vào danh sách của bệnh viện
+    private void initializePatientList() {
+        ArrayList<Patient> patientsFromDB = patientDao.getAllPatients();  // Lấy danh sách từ DB
+        hospital.setPatientsList(patientsFromDB);  // Truyền dữ liệu vào danh sách của bệnh viện
     }
 
     public HospitalController() {
         // Khởi tạo đối tượng bệnh viện
         this.hospital = new Hospital();
+        this.patientDao = new PatientDAO();  // Khởi tạo PatientDao
+        initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
     }
 
 
