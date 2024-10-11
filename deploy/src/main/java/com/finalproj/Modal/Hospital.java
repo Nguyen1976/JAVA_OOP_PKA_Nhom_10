@@ -145,6 +145,7 @@ public class Hospital {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Da sua benh nhan.");
+
                 } else {
                     System.out.println("Sua benh nhan that bai.");
                 }

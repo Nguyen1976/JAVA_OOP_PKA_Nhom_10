@@ -28,7 +28,7 @@ public class HospitalController {
     }
 
     // Phương thức lấy danh sách bệnh nhân từ DB và truyền vào danh sách của bệnh viện
-    private void initializePatientList() {
+    public void initializePatientList() {
         ArrayList<Patient> patientsFromDB = patientDao.getAllPatients();  // Lấy danh sách từ DB
         hospital.setPatientsList(patientsFromDB);  // Truyền dữ liệu vào danh sách của bệnh viện
     }

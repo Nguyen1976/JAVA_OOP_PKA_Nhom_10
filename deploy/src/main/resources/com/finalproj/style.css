@@ -1,3 +1,12 @@
+/*.root {
+    -fx-background-image: url("./image/background2.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 0); /* Hiệu ứng làm mờ */
+}
+
+
 .label {
     -fx-text-fill: #0ab54d;
     -fx-font-weight: bold;
