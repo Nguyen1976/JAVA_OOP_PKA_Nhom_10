@@ -63,41 +63,43 @@ public class TreatmentRoomViewController extends HospitalController implements I
 
     public TreatmentRoomViewController() {
         this.hospitalController = HospitalController.getInstance();
+        this.hospitalController = new HospitalController();
     }
+
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            roomList = FXCollections.observableArrayList();
-            patientList = FXCollections.observableArrayList();
+        roomList = FXCollections.observableArrayList();
+        patientList = FXCollections.observableArrayList();
 
-            // Khởi tạo các giá trị cho TableColumn từ đối tượng Room
-            colIdRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("roomId"));
-            colNameRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomName"));
-            colTypeRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomType"));
-            colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("capacity"));
+        // Khởi tạo các giá trị cho TableColumn từ đối tượng Room
+        colIdRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("roomId"));
+        colNameRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomName"));
+        colTypeRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomType"));
+        colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("capacity"));
 
-            hospitalController.addTreatmentRoom("phòng điều trị", "khám", 30);
-            roomList.addAll(hospitalController.getListRoom());
-            tableViewRoom.setItems(roomList);
-
-
+        hospitalController.addTreatmentRoom("phòng điều trị", "khám", 30);
+        roomList.addAll(hospitalController.getListRoom());
+        tableViewRoom.setItems(roomList);
 
 
-            patientList = FXCollections.observableArrayList();
 
 
-            //Cài đặt các cột cho bảng
-            idCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("patientId"));
-            nameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
-            ageCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("age"));
-            genderCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("gender"));
-            addressCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
-            phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
-            diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
+        patientList = FXCollections.observableArrayList();
 
-            patientList.addAll(hospitalController.getListPatient());
 
-            infoPatient.setItems(patientList);
+        //Cài đặt các cột cho bảng
+        idCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("patientId"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("name"));
+        ageCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("age"));
+        genderCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("gender"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
+        diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
+
+        patientList.addAll(hospitalController.getListPatient());
+
+        infoPatient.setItems(patientList);
     }
 
     @FXML
