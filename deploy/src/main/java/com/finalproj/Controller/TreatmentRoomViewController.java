@@ -58,7 +58,6 @@ public class TreatmentRoomViewController extends HospitalController implements I
     // Dữ liệu giả lập cho phòng điều trị
     private ObservableList<TreatmentRoom> roomList;
     private ObservableList<Patient> patientList;
-    private ObservableList<Patient> listPatientInRoom;
 
     private HospitalController hospitalController;
 
