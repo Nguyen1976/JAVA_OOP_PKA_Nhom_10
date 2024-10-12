@@ -1,5 +1,6 @@
 package com.finalproj.Controller;
 
+import com.finalproj.JDBCConnection.PatientDAO;
 import com.finalproj.Modal.Address;
 import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PatientViewController extends HospitalController implements Initializable {
@@ -59,6 +61,9 @@ public class PatientViewController extends HospitalController implements Initial
     // Thêm nhóm ToggleGroup để xử lý lựa chọn giới tính
     private ToggleGroup genderGroup;
 
+    private PatientDAO patientDao;  // Thêm đối tượng PatientDao để tương tác với DB
+
+
 
 //    HospitalController hospitalController = new HospitalController();
 
@@ -88,8 +93,8 @@ public class PatientViewController extends HospitalController implements Initial
         hospitalController.addPatient("name", 18, "Nam", "diagnose", address, "phone");
 
 
+        hospitalController.initializePatientList();
         patientList.addAll(hospitalController.getListPatient());
-
         infoPatient.setItems(patientList);
 
         // Thiết lập nhóm ToggleGroup để chỉ chọn 1 radio button tại 1 thời điểm
@@ -137,6 +142,8 @@ public class PatientViewController extends HospitalController implements Initial
 
             //Thêm bệnh nhân vào arraylisst
             hospitalController.addPatient(name, age, gender, diagnose, address, phone);
+            hospitalController.initializePatientList();
+
 
             // Thêm bệnh nhân vào danh sách và cập nhật bảng
             patientList.setAll(hospitalController.getListPatient());
@@ -154,6 +161,7 @@ public class PatientViewController extends HospitalController implements Initial
         Patient selected = infoPatient.getSelectionModel().getSelectedItem();
         if(selected != null) {
             hospitalController.deletePatient(selected.getPatientId());
+            hospitalController.initializePatientList();
             patientList.setAll(hospitalController.getListPatient());
         } else {
             showAlert("Lỗi", "Vui lòng chọn bệnh nhân để xóa");
@@ -212,6 +220,7 @@ public class PatientViewController extends HospitalController implements Initial
             int age = Integer.parseInt(ageText); // Chuyển đổi tuổi thành số
 
             hospitalController.updatePatient(selected.getPatientId(), name, age, gender, diagnose, address, phone);
+            hospitalController.initializePatientList();
 
             // Thêm bệnh nhân vào danh sách và cập nhật bảng
             patientList.setAll(hospitalController.getListPatient());
