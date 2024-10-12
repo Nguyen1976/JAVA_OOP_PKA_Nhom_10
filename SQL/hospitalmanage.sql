@@ -18,7 +18,14 @@ INSERT INTO treatmentRoom (roomName, roomType, capacity)
 VALUES
 ('Room 40', 'General', 41),
 ('Room 37', 'Emergency', 34),
-('Room 88', 'General', 29);
+('Room 88', 'General', 29),
+('Room 50', 'Surgery', 25),
+('Room 22', 'ICU', 18),
+('Room 13', 'General', 30),
+('Room 72', 'Pediatrics', 20),
+('Room 15', 'Emergency', 40),
+('Room 91', 'Maternity', 35),
+('Room 66', 'Radiology', 22);
 
 CREATE TABLE if not exists Patient (
     patientId INT PRIMARY KEY auto_increment not null,
