@@ -36,7 +36,7 @@ public class HospitalController {
         hospital.setPatientsList(patientsFromDB);  // Truyền dữ liệu vào danh sách của bệnh viện
     }
 
-    private void initializeTreatmentRoomList(){
+    public void initializeTreatmentRoomList(){
         ArrayList<TreatmentRoom> treatmentRoomsFromDB = treatmentRoomDao.getAllTreatmentRooms();
         hospital.setTreatmentRoomList(treatmentRoomsFromDB);
     }
