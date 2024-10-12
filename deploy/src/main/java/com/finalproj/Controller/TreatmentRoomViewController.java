@@ -78,15 +78,11 @@ public class TreatmentRoomViewController extends HospitalController implements I
         colTypeRoom.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, String>("roomType"));
         colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("capacity"));
 
-        hospitalController.addTreatmentRoom("phòng điều trị", "khám", 30);
+        hospitalController.initializeTreatmentRoomList();
         roomList.addAll(hospitalController.getListRoom());
         tableViewRoom.setItems(roomList);
 
-
-
-
         patientList = FXCollections.observableArrayList();
-
 
         //Cài đặt các cột cho bảng
         idCol.setCellValueFactory(new PropertyValueFactory<Patient, Integer>("patientId"));
@@ -97,6 +93,7 @@ public class TreatmentRoomViewController extends HospitalController implements I
         phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
         diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
 
+        hospitalController.initializePatientList();
         patientList.addAll(hospitalController.getListPatient());
 
         infoPatient.setItems(patientList);
@@ -189,6 +186,21 @@ public class TreatmentRoomViewController extends HospitalController implements I
     public void displayAllRoom(ActionEvent e) {
         roomList = FXCollections.observableArrayList();
         try {
+            roomList.addAll(hospitalController.getListRoom());
+            tableViewRoom.setItems(roomList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void deleteTreatmentRoom(ActionEvent e) {
+        roomList = FXCollections.observableArrayList();
+        try {
+            TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
+            hospitalController.deleteTreatmentRoom(treatmentSelect.getRoomId());
+
+            hospitalController.initializeTreatmentRoomList();
+
             roomList.addAll(hospitalController.getListRoom());
             tableViewRoom.setItems(roomList);
         } catch (Exception ex) {

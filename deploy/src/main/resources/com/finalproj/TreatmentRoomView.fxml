@@ -42,5 +42,6 @@
       <Button layoutX="670.0" layoutY="107.0" mnemonicParsing="false" onAction="#displayAllRoom" text="Hiển thị tất cả phòng" />
       <Button layoutX="637.0" layoutY="266.0" mnemonicParsing="false" onAction="#deletePatienToRoom" text="Xóa bệnh nhân khỏi phòng bệnh" />
       <Label layoutX="607.0" layoutY="371.0" text="Nhập vào id phòng muốn tìm" />
+      <Button layoutX="682.0" layoutY="313.0" mnemonicParsing="false" onAction="#deleteTreatmentRoom" text="Xóa phòng bệnh" />
    </children>
 </AnchorPane>

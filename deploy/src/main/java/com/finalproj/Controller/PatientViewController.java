@@ -89,8 +89,6 @@ public class PatientViewController extends HospitalController implements Initial
         addressCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("address"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("phone"));
         diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
-        Address address = new Address("city", "district");
-        hospitalController.addPatient("name", 18, "Nam", "diagnose", address, "phone");
 
 
         hospitalController.initializePatientList();
