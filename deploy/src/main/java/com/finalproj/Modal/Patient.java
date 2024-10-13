@@ -1,5 +1,7 @@
 package com.finalproj.Modal;
 
+import java.time.LocalDate;
+
 public class Patient {
     private int patientId;
     private int roomId;
@@ -13,6 +15,7 @@ public class Patient {
     public Patient() {
     }
 
+
     public Patient(int patientId, String name, int age, String gender, String diagnose, Address address, String phone, int roomId) {
         this.patientId = patientId;
         this.name = name;
@@ -23,6 +26,8 @@ public class Patient {
         this.phone = phone;
         this.roomId = roomId;
     }
+    // Các getter và setter
+
 
     public int getRoomId() {
         return roomId;

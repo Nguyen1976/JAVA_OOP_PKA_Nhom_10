@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -134,10 +135,9 @@ public class TreatmentRoomViewController extends HospitalController implements I
             boolean isAssignPatientToRoom = hospitalController.assignPatientToRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
 
             if(isAssignPatientToRoom) {
+
                 hospitalController.initializePatientList();
                 hospitalController.patientClassification();
-
-
 
                 //Hiển thị danh sách bệnh nhân trong phòng vừa thêm
                 patientList = FXCollections.observableArrayList();
@@ -151,7 +151,6 @@ public class TreatmentRoomViewController extends HospitalController implements I
         } else {
             showAlert("Lỗi", "Hãy chọn bệnh nhân và phòng bệnh cần thêm");
         }
-
     }
 
     //Bỏ patient ra khỏi phòng bệnh
@@ -160,6 +159,8 @@ public class TreatmentRoomViewController extends HospitalController implements I
         TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
 
         if (patientSelect != null && treatmentSelect != null) {
+
+
             hospitalController.removePatientFromRoom(patientSelect.getPatientId());
 
             hospitalController.initializePatientList();

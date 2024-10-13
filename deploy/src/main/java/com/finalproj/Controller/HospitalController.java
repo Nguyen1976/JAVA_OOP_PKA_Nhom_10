@@ -4,8 +4,14 @@ import com.finalproj.JDBCConnection.PatientDAO;
 import com.finalproj.JDBCConnection.TreatmentRoomDAO;
 import com.finalproj.Modal.*;
 
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +40,17 @@ public class HospitalController {
         patientClassification();
     }
 
+    public HospitalController() {
+        // Khởi tạo đối tượng bệnh viện
+        this.hospital = new Hospital();
+        this.patientDao = new PatientDAO();  // Khởi tạo PatientDao
+        initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
+        this.treatmentRoomDao = new TreatmentRoomDAO();
+        initializeTreatmentRoomList();
+        initializePatientList();
+        patientClassification();
+    }
+
     // Phân loại bệnh nhân vào phòng điều trị dựa trên roomId
     public void patientClassification() {
         // Làm mới danh sách bệnh nhân trong từng phòng điều trị
@@ -51,6 +68,55 @@ public class HospitalController {
             }
         }
     }
+
+    public void savePatientInfoToFile(Patient patient, TreatmentRoom room, String action) {
+        String filePath = "src/main/java/com/finalproj/datafiles/hospitalPatientInfo.txt";
+
+        try {
+            // Tạo đối tượng File cho file
+            File file = new File(filePath);
+
+            // Kiểm tra xem file có tồn tại không, nếu không thì tạo file mới
+            if (!file.exists()) {
+                // Tạo các thư mục cha nếu chưa tồn tại
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
+            // Sử dụng BufferedWriter để ghi dữ liệu vào file
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) { // true để thêm vào file
+                // Lấy thời gian hiện tại
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String formattedDateTime = now.format(formatter); // Định dạng thời gian
+
+                String patientInfo = "Hành động: " + action +
+                        ", Bệnh nhân: " + patient.getName() +
+                        ", Mã: " + patient.getPatientId() +
+                        ", Phòng: " + room.getRoomId() +
+                        ", Ngày nhập viện: " + formattedDateTime;
+
+                // Nếu là xuất viện, thêm ngày xuất viện
+                if (action.equals("Xuất viện")) {
+                    patientInfo += ", Ngày xuất viện: " + formattedDateTime;
+                }
+
+                bufferedWriter.write(patientInfo); // Ghi dữ liệu vào file
+                bufferedWriter.newLine(); // Thêm dòng mới
+            }
+            // In ra thông báo để xác nhận rằng đã ghi file
+            System.out.println("Dữ liệu đã được ghi vào file: " + file.getAbsolutePath());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 
     public void addPtientToRoomTemp(int patientId, int roomId) {
         Patient patient = hospital.getPatientInfo(patientId);
@@ -84,16 +150,7 @@ public class HospitalController {
         hospital.getTreatmentRoomList().addAll(treatmentRoomsFromDB); // Thêm dữ liệu mới vào danh sách của bệnh viện
     }
 
-    public HospitalController() {
-        // Khởi tạo đối tượng bệnh viện
-        this.hospital = new Hospital();
-        this.patientDao = new PatientDAO();  // Khởi tạo PatientDao
-        initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
-        this.treatmentRoomDao = new TreatmentRoomDAO();
-        initializeTreatmentRoomList();
-        initializePatientList();
-        patientClassification();
-    }
+
 
 
     //FindPatient by id
@@ -205,9 +262,15 @@ public class HospitalController {
 
     //assign patient to room
     public boolean assignPatientToRoom(int patientId, int treatmentRoomId) {
+        Patient patient = hospital.getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = hospital.getRoomInfo(treatmentRoomId);
         try {
             boolean isAssignPatientToRoom = hospital.assignPatientToRoom(patientId, treatmentRoomId);
             if (isAssignPatientToRoom) {
+
+                // Lưu thông tin bệnh nhân vào file (vào viện)
+                savePatientInfoToFile(patient, treatmentRoom, "Nhập viện");
+
                 return isAssignPatientToRoom;
             } else {
                 return false;
@@ -220,7 +283,11 @@ public class HospitalController {
 
     //remove patient from room
     public void removePatientFromRoom(int patientId) {
+        Patient patient = hospital.getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = hospital.getRoomInfo(patient.getRoomId());
         try {
+            // Lưu thông tin bệnh nhân vào file (ra viện)
+            savePatientInfoToFile(patient, treatmentRoom, "Xuất viện");
             hospital.removePatientFromRoom(patientId);
         }catch (Exception e) {
             e.printStackTrace();
