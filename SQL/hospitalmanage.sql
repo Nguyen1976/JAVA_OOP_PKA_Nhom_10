@@ -11,7 +11,7 @@ create table if not exists treatmentRoom(
 	roomId int primary key not null auto_increment,
     roomName varchar(255) not null,
     roomType varchar(255) not null,
-    capacity int not null,
+    capacity int not null
 );
 INSERT INTO treatmentRoom (roomName, roomType, capacity) 
 VALUES
@@ -39,6 +39,6 @@ CREATE TABLE if not exists Patient (
     foreign key(roomId) references treatmentroom(roomId)
 );
 INSERT INTO Patient (patientId, name, age, gender, diagnose, city, district, phone) VALUES
-(1, 'Nguyen Van A', 30, 'Male', 'Flu', 'Hanoi', 'Dong Da', '0987654321', 0),
-(2, 'Tran Thi B', 25, 'Female', 'Cold', 'Hanoi', 'Cau Giay', '0981234567', 0),
-(3, 'Le Van C', 45, 'Male', 'Diabetes', 'Da Nang', 'Hai Chau', '0976543210', 0)
+(1, 'Nguyen Van A', 30, 'Male', 'Flu', 'Hanoi', 'Dong Da', '0987654321'),
+(2, 'Tran Thi B', 25, 'Female', 'Cold', 'Hanoi', 'Cau Giay', '0981234567'),
+(3, 'Le Van C', 45, 'Male', 'Diabetes', 'Da Nang', 'Hai Chau', '0976543210')
