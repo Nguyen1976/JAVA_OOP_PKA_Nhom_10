@@ -5,11 +5,6 @@ import com.finalproj.JDBCConnection.TreatmentRoomDAO;
 import com.finalproj.Modal.*;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -110,13 +105,6 @@ public class HospitalController {
             ex.printStackTrace();
         }
     }
-
-
-
-
-
-
-
 
     public void addPtientToRoomTemp(int patientId, int roomId) {
         Patient patient = hospital.getPatientInfo(patientId);
@@ -294,24 +282,6 @@ public class HospitalController {
         }
     }
 
-
-
-    //getTreatmentRoomInfo
-    public void getTreatmentRoomInfo(int treatmentRoomId) {
-        TreatmentRoom room = hospital.getRoomInfo(treatmentRoomId);
-        try {
-            if (room != null) {
-                System.out.println("Room ID: " + room.getRoomId());
-                System.out.println("Room Name: " + room.getRoomName());
-                System.out.println("Room Type: " + room.getRoomType());
-                System.out.println("Room Capacity: " + room.getCapacity());
-            }else {
-                System.out.println("Not found");
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public List<Patient> getPatientsInRoom(int roomId) {
         patientClassification();

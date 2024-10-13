@@ -16,8 +16,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.io.InputStream;
-//import java.util.Scanner;
 
 public class LoginViewController {
     @FXML

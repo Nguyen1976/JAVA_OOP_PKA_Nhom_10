@@ -2,7 +2,6 @@ package com.finalproj.Controller;
 
 import com.finalproj.JDBCConnection.PatientDAO;
 import com.finalproj.Modal.Address;
-import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
 import com.finalproj.Utils.BackToHome;
 import javafx.collections.FXCollections;
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PatientViewController extends HospitalController implements Initializable {
@@ -244,12 +242,7 @@ public class PatientViewController extends HospitalController implements Initial
             // Tạo một danh sách tạm thời để lưu trữ các bệnh nhân phù hợp
             ObservableList<Patient> filteredList = FXCollections.observableArrayList();
 
-            // Duyệt qua danh sách bệnh nhân và kiểm tra xem tên hoặc các thuộc tính khác có chứa từ khóa không
-            for (Patient patient : patientList) {
-                if(patient.getPatientId() == searchId) {
-                    filteredList.add(patient);
-                }
-            }
+            filteredList.add(hospitalController.findPatient(searchId));
             if(filteredList.isEmpty()) {
                 showAlert("Lỗi", "Không có bệnh nhân cần tìm kiếm");
             } else {
