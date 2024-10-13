@@ -40,7 +40,7 @@
       <Button layoutX="766.0" layoutY="396.0" mnemonicParsing="false" onAction="#searchRoom" text="Tìm phòng" />
       <TextField fx:id="searchRoomtxt" layoutX="607.0" layoutY="396.0" />
       <Button layoutX="670.0" layoutY="107.0" mnemonicParsing="false" onAction="#displayAllRoom" text="Hiển thị tất cả phòng" />
-      <Button layoutX="637.0" layoutY="266.0" mnemonicParsing="false" onAction="#deletePatienToRoom" text="Xóa bệnh nhân khỏi phòng bệnh" />
+      <Button layoutX="702.0" layoutY="265.0" mnemonicParsing="false" onAction="#removePatienToRoom" text="Xuất viện" />
       <Label layoutX="607.0" layoutY="371.0" text="Nhập vào id phòng muốn tìm" />
       <Button layoutX="682.0" layoutY="313.0" mnemonicParsing="false" onAction="#deleteTreatmentRoom" text="Xóa phòng bệnh" />
    </children>

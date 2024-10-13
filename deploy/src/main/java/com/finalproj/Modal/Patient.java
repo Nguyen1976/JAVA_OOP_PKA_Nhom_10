@@ -2,6 +2,7 @@ package com.finalproj.Modal;
 
 public class Patient {
     private int patientId;
+    private int roomId;
     private String name;
     private int age;
     private String gender;
@@ -12,7 +13,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(int patientId, String name, int age, String gender, String diagnose, Address address, String phone) {
+    public Patient(int patientId, String name, int age, String gender, String diagnose, Address address, String phone, int roomId) {
         this.patientId = patientId;
         this.name = name;
         this.age = age;
@@ -20,9 +21,16 @@ public class Patient {
         this.diagnose = diagnose;
         this.address = address;
         this.phone = phone;
+        this.roomId = roomId;
     }
 
+    public int getRoomId() {
+        return roomId;
+    }
 
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
 
     public int getPatientId() {
         return patientId;

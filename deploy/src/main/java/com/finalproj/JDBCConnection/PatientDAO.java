@@ -23,6 +23,7 @@ public class PatientDAO {
             while (resultSet.next()) {
                 Patient patient = new Patient();
                 patient.setPatientId(resultSet.getInt("patientId"));
+                patient.setRoomId(resultSet.getInt("roomId"));
                 patient.setName(resultSet.getString("name"));
                 patient.setAge(resultSet.getInt("age"));
                 patient.setGender(resultSet.getString("gender"));

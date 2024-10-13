@@ -79,6 +79,7 @@ public class TreatmentRoomViewController extends HospitalController implements I
         colCapacity.setCellValueFactory(new PropertyValueFactory<TreatmentRoom, Integer>("capacity"));
 
         hospitalController.initializeTreatmentRoomList();
+
         roomList.addAll(hospitalController.getListRoom());
         tableViewRoom.setItems(roomList);
 
@@ -94,9 +95,14 @@ public class TreatmentRoomViewController extends HospitalController implements I
         diagnoseCol.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnose"));
 
         hospitalController.initializePatientList();
+
+        hospitalController.patientClassification();
+
+
         patientList.addAll(hospitalController.getListPatient());
 
         infoPatient.setItems(patientList);
+
     }
 
     @FXML
@@ -111,7 +117,6 @@ public class TreatmentRoomViewController extends HospitalController implements I
     public void displayPatientInRoom(ActionEvent e) {
         TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
         if(treatmentSelect != null) {
-
             patientList = FXCollections.observableArrayList();
 
             patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
@@ -129,12 +134,19 @@ public class TreatmentRoomViewController extends HospitalController implements I
             boolean isAssignPatientToRoom = hospitalController.assignPatientToRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
 
             if(isAssignPatientToRoom) {
+                hospitalController.initializePatientList();
+                hospitalController.patientClassification();
+
+
+
                 //Hiển thị danh sách bệnh nhân trong phòng vừa thêm
                 patientList = FXCollections.observableArrayList();
                 patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
                 infoPatient.setItems(patientList);
+                hospitalController.patientClassification();
+                showAlertSuccess("", "Thêm thành công bệnh nhân vào phòng bệnh");
             } else {
-                showAlert("Lỗi", "Đã có bệnh nhân trong phòng bệnh");
+                showAlert("Lỗi", "Bệnh nhân đã có phòng bệnh");
             }
         } else {
             showAlert("Lỗi", "Hãy chọn bệnh nhân và phòng bệnh cần thêm");
@@ -142,45 +154,55 @@ public class TreatmentRoomViewController extends HospitalController implements I
 
     }
 
-    public void deletePatienToRoom(ActionEvent e) {
+    //Bỏ patient ra khỏi phòng bệnh
+    public void removePatienToRoom(ActionEvent e) {
         Patient patientSelect = infoPatient.getSelectionModel().getSelectedItem();
         TreatmentRoom treatmentSelect = tableViewRoom.getSelectionModel().getSelectedItem();
 
         if (patientSelect != null && treatmentSelect != null) {
-            hospitalController.removePatientFromRoom(patientSelect.getPatientId(), treatmentSelect.getRoomId());
+            hospitalController.removePatientFromRoom(patientSelect.getPatientId());
+
+            hospitalController.initializePatientList();
+            hospitalController.patientClassification();
 
             //Hiển thị danh sách bệnh nhân trong phòng vừa xóa
             patientList = FXCollections.observableArrayList();
             patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
             infoPatient.setItems(patientList);
+            showAlertSuccess("", "Bệnh nhân đã xuất viện thành công");
         } else {
             showAlert("Lỗi", "Hãy chọn bệnh nhân cần xóa khỏi phòng bệnh");
         }
     }
 
     public void searchRoom(ActionEvent e) {
-        String roomtxt = searchRoomtxt.getText();
+        try {
+            String roomtxt = searchRoomtxt.getText();
 
-        // Kiểm tra nếu ô nhập không có giá trị
-        if (roomtxt.isEmpty()) {
-            showAlert("Lỗi", "Vui lòng nhập mã phòng để tìm kiếm");
-            return;
+            // Kiểm tra nếu ô nhập không có giá trị
+            if (roomtxt.isEmpty()) {
+                showAlert("Lỗi", "Vui lòng nhập mã phòng để tìm kiếm");
+                return;
+            }
+
+            roomList = FXCollections.observableArrayList();
+            int roomId = Integer.parseInt(roomtxt);
+            if(hospitalController.findTreatmentRoom(roomId) != null) {
+                roomList.add(hospitalController.findTreatmentRoom(roomId));
+                tableViewRoom.setItems(roomList);
+
+                //Hiển thị danh sách bệnh nhân trong phòng vừa tìm kiếm
+                patientList = FXCollections.observableArrayList();
+
+                patientList.addAll(hospitalController.getPatientsInRoom(roomId));
+                infoPatient.setItems(patientList);
+            } else {
+                showAlert("Lỗi", "Không tìm thấy phòng điều trị");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        roomList = FXCollections.observableArrayList();
-        int roomId = Integer.parseInt(roomtxt);
-        if(hospitalController.findTreatmentRoom(roomId) != null) {
-            roomList.add(hospitalController.findTreatmentRoom(roomId));
-            tableViewRoom.setItems(roomList);
-
-            //Hiển thị danh sách bệnh nhân trong phòng vừa tìm kiếm
-            patientList = FXCollections.observableArrayList();
-
-            patientList.addAll(hospitalController.getPatientsInRoom(roomId));
-            infoPatient.setItems(patientList);
-        } else {
-            showAlert("", "Không tìm thấy phòng điều trị");
-        }
     }
 
     public void displayAllRoom(ActionEvent e) {
@@ -224,6 +246,15 @@ public class TreatmentRoomViewController extends HospitalController implements I
     // Hàm hiển thị thông báo lỗi
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Hàm hiển thị thông báo lỗi
+    private void showAlertSuccess(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

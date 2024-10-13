@@ -4,6 +4,8 @@ import com.finalproj.JDBCConnection.PatientDAO;
 import com.finalproj.JDBCConnection.TreatmentRoomDAO;
 import com.finalproj.Modal.*;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +30,58 @@ public class HospitalController {
         initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
         this.treatmentRoomDao = new TreatmentRoomDAO();
         initializeTreatmentRoomList();
+        initializePatientList();
+        patientClassification();
     }
 
-    // Phương thức lấy danh sách bệnh nhân từ DB và truyền vào danh sách của bệnh viện
+    // Phân loại bệnh nhân vào phòng điều trị dựa trên roomId
+    public void patientClassification() {
+        // Làm mới danh sách bệnh nhân trong từng phòng điều trị
+        for (TreatmentRoom room : hospital.getTreatmentRoomList()) {
+            // Khởi tạo danh sách bệnh nhân mới cho từng phòng
+            room.setPatientsList(new ArrayList<>()); // Giả sử bạn muốn khởi tạo một danh sách mới
+        }
+        for (Patient patient : hospital.getPatientsList()) {
+            if(patient.getRoomId() != 0) {
+                for (TreatmentRoom room : hospital.getTreatmentRoomList()) {
+                    if (patient.getRoomId() == room.getRoomId()) {
+                        addPtientToRoomTemp(patient.getPatientId(), room.getRoomId());
+                    }
+                }
+            }
+        }
+    }
+
+    public void addPtientToRoomTemp(int patientId, int roomId) {
+        Patient patient = hospital.getPatientInfo(patientId);
+        TreatmentRoom treatmentRoom = hospital.getRoomInfo(roomId);
+
+        try {
+            if (patient == null) {
+                System.out.println("Bệnh nhân không tồn tại.");
+                return;
+            }
+
+            // Kiểm tra xem bệnh nhân đã có trong danh sách của phòng chưa
+            if (!treatmentRoom.getPatientsList().contains(patient)) {
+                treatmentRoom.getPatientsList().add(patient);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void initializePatientList() {
         ArrayList<Patient> patientsFromDB = patientDao.getAllPatients();  // Lấy danh sách từ DB
-        hospital.setPatientsList(patientsFromDB);  // Truyền dữ liệu vào danh sách của bệnh viện
+        hospital.setPatientsList(new ArrayList<>()); // Xóa danh sách hiện tại
+        hospital.getPatientsList().addAll(patientsFromDB);  // Thêm dữ liệu mới vào danh sách của bệnh viện
     }
 
     public void initializeTreatmentRoomList(){
         ArrayList<TreatmentRoom> treatmentRoomsFromDB = treatmentRoomDao.getAllTreatmentRooms();
-        hospital.setTreatmentRoomList(treatmentRoomsFromDB);
+        hospital.setTreatmentRoomList(new ArrayList<>()); // Xóa danh sách hiện tại
+        hospital.getTreatmentRoomList().addAll(treatmentRoomsFromDB); // Thêm dữ liệu mới vào danh sách của bệnh viện
     }
 
     public HospitalController() {
@@ -48,6 +91,8 @@ public class HospitalController {
         initializePatientList();  // Lấy dữ liệu từ DB khi khởi tạo
         this.treatmentRoomDao = new TreatmentRoomDAO();
         initializeTreatmentRoomList();
+        initializePatientList();
+        patientClassification();
     }
 
 
@@ -82,9 +127,9 @@ public class HospitalController {
     }
 
     //add new patient
-    public void addPatient(String name, int age, String gender, String diagnose, Address address, String phone) {
+    public void addPatient(String name, int age, String gender, String diagnose, Address address, String phone, int roomId) {
         try{
-            Patient newPatient = new Patient(hospital.getNextPatientId(),name, age, gender, diagnose, address, phone);
+            Patient newPatient = new Patient(hospital.getNextPatientId(),name, age, gender, diagnose, address, phone, roomId);
             hospital.addPatient(newPatient);
         }catch (Exception e) {
             e.printStackTrace();
@@ -174,9 +219,9 @@ public class HospitalController {
     }
 
     //remove patient from room
-    public void removePatientFromRoom(int patientId, int treatmentRoomId) {
+    public void removePatientFromRoom(int patientId) {
         try {
-            hospital.removePatientFromRoom(patientId, treatmentRoomId);
+            hospital.removePatientFromRoom(patientId);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -202,21 +247,29 @@ public class HospitalController {
     }
 
     public List<Patient> getPatientsInRoom(int roomId) {
+        patientClassification();
         List<Patient> patientsInRoom = hospital.getPatientsInRoom(roomId);
+
         try {
-            if(patientsInRoom.isEmpty()){
+            // Kiểm tra nếu danh sách là null, khởi tạo danh sách trống
+            if (patientsInRoom == null) {
+                patientsInRoom = new ArrayList<>();  // Khởi tạo danh sách trống
+            }
+            if (patientsInRoom.isEmpty()) {
                 System.out.println("Not found");
-            }else {
+            } else {
                 System.out.println("Danh sach: ");
                 for (Patient patient : patientsInRoom) {
-                    System.out.println("ID: " + patient.getPatientId() + ", Name " + patient.getName() + ", Diagnose: " + patient.getDiagnose());
+                    System.out.println("ID: " + patient.getPatientId() + ", Name: " + patient.getName() + ", Diagnose: " + patient.getDiagnose());
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return patientsInRoom;
     }
+
 
     public List<TreatmentRoom> getListRoom() {
         return hospital.getTreatmentRoomList();
