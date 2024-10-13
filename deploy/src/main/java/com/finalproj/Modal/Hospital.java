@@ -74,22 +74,6 @@ public class Hospital {
                 treatmentRoom.setRoomName(resultSet.getString("roomName"));
                 treatmentRoom.setRoomType(resultSet.getString("roomType"));
                 treatmentRoom.setCapacity(resultSet.getInt("capacity"));
-//                String patientsListString = resultSet.getString("patientsList");
-
-                // Sử dụng split để phân chia thành mảng chuỗi
-//                String[] patientNamesArray = patientsListString.split(",");
-//
-//                // Chuyển đổi mảng chuỗi thành List<Patient>
-//                List<Patient> patientsList = new ArrayList<>();
-//                for (String name : patientNamesArray) {
-//                    // Tạo đối tượng Patient cho mỗi tên (giả sử Patient chỉ có thuộc tính name)
-//                    Patient patient = new Patient();
-//                    patient.setName(name.trim()); // Trim để loại bỏ các khoảng trắng dư thừa
-//                    patientsList.add(patient);
-//                }
-
-                // Đặt danh sách bệnh nhân vào đối tượng treatmentRoom
-//                treatmentRoom.setPatientsList(patientsList);
 
                 return treatmentRoom;
             }
@@ -203,7 +187,6 @@ public class Hospital {
                 preparedStatement.setString(1, treatmentRoom.getRoomName());
                 preparedStatement.setString(2, treatmentRoom.getRoomType());
                 preparedStatement.setInt(3, treatmentRoom.getCapacity());
-//                preparedStatement.setString(4, treatmentRoom.getPatientsList().toString());
 
                 int affectedRowsCount = preparedStatement.executeUpdate();
                 if (affectedRowsCount > 0) {
@@ -286,17 +269,6 @@ public class Hospital {
     }
 
 
-    public boolean comparePatientDiagnoseWithRoomType(int patientId, int roomId){
-
-        Patient patient = getPatientInfo(patientId);
-        TreatmentRoom treatmentRoom = getRoomInfo(roomId);
-        if (patient == null || treatmentRoom == null) {
-            System.out.println("Not found");
-            return false;
-        }
-
-        return patient.getDiagnose().equalsIgnoreCase(treatmentRoom.getRoomType());
-    }
 
     public boolean assignPatientToRoom(int patientId, int roomId) {
         Patient patient = getPatientInfo(patientId);
@@ -305,13 +277,11 @@ public class Hospital {
         PreparedStatement preparedStatement = null;
 
         try {
-            // Kiểm tra xem bệnh nhân có tồn tại không
             if (patient == null) {
                 System.out.println("Patient not found");
                 return false;
             }
 
-            // Kiểm tra xem phòng điều trị có tồn tại không
             if (treatmentRoom == null) {
                 System.out.println("Treatment room not found");
                 return false;
@@ -377,7 +347,7 @@ public class Hospital {
 
         try {
             String sql = "UPDATE patient SET roomId = NULL WHERE patientId = ?";
-            connection = getConnection(); // Giả sử bạn có phương thức này để lấy kết nối
+            connection = getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, patientId);
             int rowsUpdated = preparedStatement.executeUpdate();
