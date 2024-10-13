@@ -18,17 +18,12 @@ public class Hospital {
     private int nextPatientId;
     private int nextRoomId;
 
-
-
     public Hospital() {
         this.patientsList = new ArrayList<>();
         this.treatmentRoomList = new ArrayList<>();
         this.nextPatientId = 1;
         this.nextRoomId = 1;
     }
-
-
-
 
     //find Patient
     public Patient findPatient(int patientId) {
