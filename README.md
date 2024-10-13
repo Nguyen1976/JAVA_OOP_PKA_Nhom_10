@@ -24,25 +24,25 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.2 UML Sequence Diagram
 
-## 1.2.1 : assignPatientToRoom()
+## 1.2.1 : findPatient
 
-![UML](./img/sequence1.jpg)
+![UML](./img/sequence1.png)
 
-## 1.2.2 : isRoomFull()
+## 1.2.2 : findTreatmentRoom
 
-![UML](./img/sequence2.jpg)
+![UML](./img/sequence2.png)
 
-## 1.2.3 : comparePatientDiagnoseWithRoomType()
+## 1.2.3 : assignPatientToRoom
 
-![UML](./img/sequence3.jpg)
+![UML](./img/sequence3.png)
 
 ## 1.2.4 : removePatientFromRoom()
 
-![UML](./img/sequence4.jpg)
+![UML](./img/)
 
-## 1.2.5 : getPatientListInRoom()
+## 1.2.5 :
 
-![UML](./img/seqence5.png)
+![UML](./img/)
 
 ## Giao diện đầu tiên của dự án
 ![firstScreen](./img/firstScreen.png)
