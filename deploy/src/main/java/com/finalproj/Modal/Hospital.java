@@ -43,7 +43,6 @@ public class Hospital {
                 String district = resultSet.getString("district");
                 String phone = resultSet.getString("phone");
                 int roomId = resultSet.getInt("roomId");
-
                 Address address = new Address(city, district);
                 return new Patient(patientId, name, age, gender, diagnose, address, phone, roomId);
             }
@@ -292,7 +291,7 @@ public class Hospital {
             if (!treatmentRoom.isRoomFull() && !treatmentRoom.getPatientsList().contains(patient)) {
                 // Thực hiện truy vấn SQL để cập nhật roomId cho bệnh nhân
                 String sql = "UPDATE patient SET roomId = ? WHERE patientId = ?";
-                connection = getConnection(); // Giả sử bạn có phương thức này để lấy kết nối
+                connection = getConnection(); // có phương thức này để lấy kết nối
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, roomId); // Đặt roomId vào tham số 1
                 preparedStatement.setInt(2, patientId); // Đặt patientId vào tham số 2
