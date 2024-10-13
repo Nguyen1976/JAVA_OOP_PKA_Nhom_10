@@ -25,8 +25,10 @@ public class Hospital {
         this.treatmentRoomList = new ArrayList<>();
         this.nextPatientId = 1;
         this.nextRoomId = 1;
-
     }
+
+
+
 
     //find Patient
     public Patient findPatient(int patientId) {
@@ -45,9 +47,10 @@ public class Hospital {
                 String city = resultSet.getString("city");
                 String district = resultSet.getString("district");
                 String phone = resultSet.getString("phone");
+                int roomId = resultSet.getInt("roomId");
 
                 Address address = new Address(city, district);
-                return new Patient(patientId, name, age, gender, diagnose, address, phone);
+                return new Patient(patientId, name, age, gender, diagnose, address, phone, roomId);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,22 +74,22 @@ public class Hospital {
                 treatmentRoom.setRoomName(resultSet.getString("roomName"));
                 treatmentRoom.setRoomType(resultSet.getString("roomType"));
                 treatmentRoom.setCapacity(resultSet.getInt("capacity"));
-                String patientsListString = resultSet.getString("patientsList");
+//                String patientsListString = resultSet.getString("patientsList");
 
                 // Sử dụng split để phân chia thành mảng chuỗi
-                String[] patientNamesArray = patientsListString.split(",");
-
-                // Chuyển đổi mảng chuỗi thành List<Patient>
-                List<Patient> patientsList = new ArrayList<>();
-                for (String name : patientNamesArray) {
-                    // Tạo đối tượng Patient cho mỗi tên (giả sử Patient chỉ có thuộc tính name)
-                    Patient patient = new Patient();
-                    patient.setName(name.trim()); // Trim để loại bỏ các khoảng trắng dư thừa
-                    patientsList.add(patient);
-                }
+//                String[] patientNamesArray = patientsListString.split(",");
+//
+//                // Chuyển đổi mảng chuỗi thành List<Patient>
+//                List<Patient> patientsList = new ArrayList<>();
+//                for (String name : patientNamesArray) {
+//                    // Tạo đối tượng Patient cho mỗi tên (giả sử Patient chỉ có thuộc tính name)
+//                    Patient patient = new Patient();
+//                    patient.setName(name.trim()); // Trim để loại bỏ các khoảng trắng dư thừa
+//                    patientsList.add(patient);
+//                }
 
                 // Đặt danh sách bệnh nhân vào đối tượng treatmentRoom
-                treatmentRoom.setPatientsList(patientsList);
+//                treatmentRoom.setPatientsList(patientsList);
 
                 return treatmentRoom;
             }
@@ -191,7 +194,7 @@ public class Hospital {
 
     //add treatmentRoom
     public void addTreatmentRoom(TreatmentRoom treatmentRoom) {
-        String query = "INSERT INTO treatmentRoom (roomName, roomType, capacity, patientsList) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO treatmentRoom (roomName, roomType, capacity) VALUES (?, ?, ?)";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -200,7 +203,7 @@ public class Hospital {
                 preparedStatement.setString(1, treatmentRoom.getRoomName());
                 preparedStatement.setString(2, treatmentRoom.getRoomType());
                 preparedStatement.setInt(3, treatmentRoom.getCapacity());
-                preparedStatement.setString(4, treatmentRoom.getPatientsList().toString());
+//                preparedStatement.setString(4, treatmentRoom.getPatientsList().toString());
 
                 int affectedRowsCount = preparedStatement.executeUpdate();
                 if (affectedRowsCount > 0) {
@@ -271,11 +274,11 @@ public class Hospital {
     }
 
     // Info treatmentRoom
+
     public TreatmentRoom getRoomInfo(int roomId) {
         if (treatmentRoomList == null || treatmentRoomList.isEmpty()) {
             return null; // Trả về null nếu danh sách phòng chưa được khởi tạo hoặc rỗng
         }
-
         return treatmentRoomList.stream()
                 .filter(treatmentRoom -> treatmentRoom.getRoomId() == roomId)
                 .findFirst()
@@ -298,63 +301,108 @@ public class Hospital {
     public boolean assignPatientToRoom(int patientId, int roomId) {
         Patient patient = getPatientInfo(patientId);
         TreatmentRoom treatmentRoom = getRoomInfo(roomId);
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
 
         try {
-            if(patient == null ) {
-                System.out.println("patient Not found");
+            // Kiểm tra xem bệnh nhân có tồn tại không
+            if (patient == null) {
+                System.out.println("Patient not found");
                 return false;
             }
-            if (treatmentRoom == null){
-                System.out.println("treatment not found");
-                return false;
-            }
-            List<Patient> listPatientInRoom = treatmentRoom.getPatientsList();
 
-            // Kiểm tra nếu bệnh nhân đã có trong phòng
-            for (Patient p : listPatientInRoom) {
-                if (p.getPatientId() == patientId) {
-                    System.out.println("The patient is already in the room.");
+            // Kiểm tra xem phòng điều trị có tồn tại không
+            if (treatmentRoom == null) {
+                System.out.println("Treatment room not found");
+                return false;
+            }
+
+            // Kiểm tra xem bệnh nhân đã được chỉ định vào phòng nào chưa
+            if (patient.getRoomId() != 0) {
+                System.out.println("Patient already assigned to a room.");
+                return false;
+            }
+
+            // Kiểm tra xem phòng có đầy không và bệnh nhân đã có trong danh sách chưa
+            if (!treatmentRoom.isRoomFull() && !treatmentRoom.getPatientsList().contains(patient)) {
+                // Thực hiện truy vấn SQL để cập nhật roomId cho bệnh nhân
+                String sql = "UPDATE patient SET roomId = ? WHERE patientId = ?";
+                connection = getConnection(); // Giả sử bạn có phương thức này để lấy kết nối
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, roomId); // Đặt roomId vào tham số 1
+                preparedStatement.setInt(2, patientId); // Đặt patientId vào tham số 2
+
+                int rowsUpdated = preparedStatement.executeUpdate();
+                if (rowsUpdated > 0) {
+                    // Cập nhật roomId cho bệnh nhân
+                    patient.setRoomId(roomId);
+                    System.out.println("Patient assigned to treatment room successfully.");
+                    return true;
+                } else {
+                    System.out.println("Failed to assign patient to treatment room.");
                     return false;
                 }
+            } else {
+                System.out.println("Cannot assign patient to room.");
+                System.out.println("Room full: " + treatmentRoom.isRoomFull());
+                System.out.println("Patient already in room: " + treatmentRoom.getPatientsList().contains(patient));
+                return false;
             }
-
-//             && comparePatientDiagnoseWithRoomType(patientId, roomId)
-            if(!treatmentRoom.isRoomFull()){
-                treatmentRoom.getPatientsList().add(patient);
-                System.out.println("Patient assign TreatmentRoom");
-            }else {
-                System.out.println(!treatmentRoom.isRoomFull());
-                System.out.println(comparePatientDiagnoseWithRoomType(patientId, roomId));
-                System.out.println("Can not assign patient to room");
-            }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng các tài nguyên kết nối
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        return true;
+        return false; // Nếu có vấn đề gì xảy ra
     }
 
 
-    //remove patient from room
-    public void removePatientFromRoom(int patientId, int roomId){
-        Patient patient = getPatientInfo(patientId);
-        TreatmentRoom treatmentRoom = getRoomInfo(roomId);
-        try {
-            if(patient == null ) {
-                System.out.println("Not found");
-            }
-            if(treatmentRoom == null){
-                System.out.println("Not found");
-            }
 
-            for(TreatmentRoom room : treatmentRoomList){
-                if (treatmentRoom.getPatientsList().contains(patient)) {
-                    treatmentRoom.getPatientsList().remove(patient);
-                    System.out.println("Benh nhan xuat vien");
-                }
+    //remove patient from room
+    public void removePatientFromRoom(int patientId) {
+        Patient patient = getPatientInfo(patientId);
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String sql = "UPDATE patient SET roomId = NULL WHERE patientId = ?";
+            connection = getConnection(); // Giả sử bạn có phương thức này để lấy kết nối
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, patientId);
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                // Cập nhật roomId cho bệnh nhân
+                patient.setRoomId(0);
+                System.out.println("Patient remove to treatment room successfully.");
+            } else {
+                System.out.println("Failed to remove patient to treatment room.");
             }
-        }catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        }  finally {
+            // Đảm bảo đóng các tài nguyên kết nối
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -139,7 +139,7 @@ public class PatientViewController extends HospitalController implements Initial
 
 
             //Thêm bệnh nhân vào arraylisst
-            hospitalController.addPatient(name, age, gender, diagnose, address, phone);
+            hospitalController.addPatient(name, age, gender, diagnose, address, phone, 0);
             hospitalController.initializePatientList();
 
 

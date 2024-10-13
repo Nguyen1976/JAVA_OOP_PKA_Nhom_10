@@ -1,5 +1,6 @@
 package com.finalproj.Modal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TreatmentRoom {
@@ -14,12 +15,16 @@ public class TreatmentRoom {
         this.roomName = roomName;
         this.roomType = roomType;
         this.capacity = capacity;
-        this.patientsList = patientsList;
+        this.patientsList = (patientsList != null) ? patientsList : new ArrayList<>(); // Khởi tạo nếu null
     }
 
     public TreatmentRoom() {
-
+        this.patientsList = new ArrayList<>(); // Khởi tạo danh sách rỗng
     }
+
+//    public TreatmentRoom() {
+//
+//    }
 
 
     public int getRoomId() {
@@ -62,8 +67,7 @@ public class TreatmentRoom {
         this.patientsList = patientsList;
     }
 
-    //roomFull?
-    public boolean isRoomFull(){
-        return patientsList.size() >= capacity;
+    public boolean isRoomFull() {
+        return patientsList != null && patientsList.size() >= capacity;
     }
 }

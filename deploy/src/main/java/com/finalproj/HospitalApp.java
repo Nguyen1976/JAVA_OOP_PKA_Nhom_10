@@ -48,7 +48,7 @@ public class HospitalApp {
                     String district = scanner.nextLine();
                     Address address = new Address(city, district);
 
-                    controller.addPatient(name, age, gender, diagnose, address, phone);
+                    controller.addPatient(name, age, gender, diagnose, address, phone, 0);
                     break;
 
                 case 2:
@@ -142,7 +142,7 @@ public class HospitalApp {
                     int patientIdRemove = scanner.nextInt();
                     System.out.println("Nhập ID phòng điều trị:");
                     int roomIdRemove = scanner.nextInt();
-                    controller.removePatientFromRoom(patientIdRemove, roomIdRemove);
+                    controller.removePatientFromRoom(patientIdRemove);
                     break;
                 case 10:
                     System.out.println("In danh sách bệnh nhân trong phòng điều trị");
