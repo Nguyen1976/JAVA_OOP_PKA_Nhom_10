@@ -1,7 +1,5 @@
 package com.finalproj.Controller;
 
-import com.finalproj.Modal.Address;
-import com.finalproj.Modal.Hospital;
 import com.finalproj.Modal.Patient;
 import com.finalproj.Modal.TreatmentRoom;
 import com.finalproj.Utils.BackToHome;
@@ -16,8 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class TreatmentRoomViewController extends HospitalController implements Initializable {
