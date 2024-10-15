@@ -38,11 +38,12 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 
 ## 1.2.4 : removePatientFromRoom()
 
-![UML](./img/)
+![UML](./img/sequence4.png)
 
-## 1.2.5 :
+## 1.2.5 : savePatientInfoToFile()
+![UML](./img/sequence5.png)
 
-![UML](./img/)
+
 
 ## Giao diện đầu tiên của dự án
 ![firstScreen](./img/firstScreen.png)

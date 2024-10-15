@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PatientViewController extends HospitalController implements Initializable {
@@ -140,6 +141,8 @@ public class PatientViewController extends HospitalController implements Initial
             hospitalController.addPatient(name, age, gender, diagnose, address, phone, 0);
             hospitalController.initializePatientList();
 
+            showAlert("Thành công", "Thêm bệnh nhân thành công");
+
 
             // Thêm bệnh nhân vào danh sách và cập nhật bảng
             patientList.setAll(hospitalController.getListPatient());
@@ -156,9 +159,19 @@ public class PatientViewController extends HospitalController implements Initial
     public void deletePatient(ActionEvent e) {
         Patient selected = infoPatient.getSelectionModel().getSelectedItem();
         if(selected != null) {
-            hospitalController.deletePatient(selected.getPatientId());
-            hospitalController.initializePatientList();
-            patientList.setAll(hospitalController.getListPatient());
+            // Tạo hộp thoại xác nhận
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác nhận xóa bệnh nhân");
+            alert.setHeaderText("Bạn có chắc chắn muốn xóa bệnh nhân?");
+            alert.setContentText("Nhấn OK để xóa, hoặc Cancel để trở lại.");
+
+            // Hiển thị hộp thoại
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                hospitalController.deletePatient(selected.getPatientId());
+                hospitalController.initializePatientList();
+                patientList.setAll(hospitalController.getListPatient());
+            }
         } else {
             showAlert("Lỗi", "Vui lòng chọn bệnh nhân để xóa");
             return;
@@ -217,6 +230,8 @@ public class PatientViewController extends HospitalController implements Initial
 
             hospitalController.updatePatient(selected.getPatientId(), name, age, gender, diagnose, address, phone);
             hospitalController.initializePatientList();
+
+            showAlertSuccess("Thành công", "Sửa bệnh nhân thành công");
 
             // Thêm bệnh nhân vào danh sách và cập nhật bảng
             patientList.setAll(hospitalController.getListPatient());
@@ -299,6 +314,15 @@ public class PatientViewController extends HospitalController implements Initial
     // Hàm hiển thị thông báo lỗi
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Hàm hiển thị thông báo lỗi
+    private void showAlertSuccess(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
