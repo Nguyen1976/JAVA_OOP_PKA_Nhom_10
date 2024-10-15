@@ -140,7 +140,7 @@ public class TreatmentRoomViewController extends HospitalController implements I
                 patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
                 infoPatient.setItems(patientList);
                 hospitalController.patientClassification();
-                showAlertSuccess("", "Thêm thành công bệnh nhân vào phòng bệnh");
+                showAlertSuccess("Thành công", "Thêm thành công bệnh nhân vào phòng bệnh");
             } else {
                 showAlert("Lỗi", "Bệnh nhân đã có phòng bệnh");
             }
@@ -166,9 +166,9 @@ public class TreatmentRoomViewController extends HospitalController implements I
             patientList = FXCollections.observableArrayList();
             patientList.addAll(hospitalController.getPatientsInRoom(treatmentSelect.getRoomId()));
             infoPatient.setItems(patientList);
-            showAlertSuccess("", "Bệnh nhân đã xuất viện thành công");
+            showAlertSuccess("Thành công", "Bệnh nhân đã xuất viện thành công");
         } else {
-            showAlert("Lỗi", "Hãy chọn bệnh nhân cần xóa khỏi phòng bệnh");
+            showAlert("Lỗi", "Hãy chọn bệnh nhân cần xuất viện");
         }
     }
 
@@ -249,7 +249,7 @@ public class TreatmentRoomViewController extends HospitalController implements I
         alert.showAndWait();
     }
 
-    // Hàm hiển thị thông báo lỗi
+
     private void showAlertSuccess(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

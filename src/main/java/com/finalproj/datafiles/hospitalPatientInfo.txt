@@ -1,1 +1,2 @@
 Hành động: Nhập viện, Bệnh nhân: Le Van C, Mã: 3, Phòng: 1, Ngày nhập viện: 2024-10-13 21:21:44
+Hành động: Xuất viện, Bệnh nhân: Le Van C, Mã: 3, Phòng: 1, Ngày nhập viện: 2024-10-15 10:25:38, Ngày xuất viện: 2024-10-15 10:25:38
