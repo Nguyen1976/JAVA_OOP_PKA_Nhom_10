@@ -43,6 +43,9 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 ## 1.2.5 : savePatientInfoToFile()
 ![UML](./img/sequence5.png)
 
+## Mô hình quan hệ
+![Mô hình quan hệ](./img/db.png)
+
 
 
 ## Giao diện đầu tiên của dự án
