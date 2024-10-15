@@ -238,14 +238,20 @@ public class PatientViewController extends HospitalController implements Initial
             }
 
             Integer searchId = Integer.parseInt(searchPatient.getText());
+            // Tìm bệnh nhân với ID
+            Patient foundPatient = hospitalController.findPatient(searchId);
 
-            // Tạo một danh sách tạm thời để lưu trữ các bệnh nhân phù hợp
-            ObservableList<Patient> filteredList = FXCollections.observableArrayList();
-
-            filteredList.add(hospitalController.findPatient(searchId));
-            if(filteredList.isEmpty()) {
+            if(foundPatient == null) {
                 showAlert("Lỗi", "Không có bệnh nhân cần tìm kiếm");
+
+                // Hiển thị all bệnh nhân khi k tìm thấy
+                patientList.setAll(hospitalController.getListPatient());
+                infoPatient.setItems(patientList);
             } else {
+                // Tạo danh sách tạm thời và thêm bệnh nhân tìm được
+                ObservableList<Patient> filteredList = FXCollections.observableArrayList();
+                filteredList.add(foundPatient);
+
                 // Cập nhật bảng với danh sách bệnh nhân đã lọc
                 infoPatient.setItems(filteredList);
             }
