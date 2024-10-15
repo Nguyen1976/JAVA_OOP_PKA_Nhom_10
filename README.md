@@ -4,17 +4,15 @@ GROUP_10-OOP-N03
 ## Giới Thiệu Dự Án
 Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu hóa và cải thiện hiệu quả hoạt động của các bệnh viện. Hệ thống cho phép quản lý hồ sơ bệnh nhân.
 ## Thành Viên Nhóm
-- **Hoàng Lê Đức Huy**: Phát triển phần mềm toàn diện.
-- **Nguyễn Hà Nguyên**: Phát triển phần mềm toàn diện.
+- **Hoàng Lê Đức Huy**: Phát triển phần mềm.
+- **Nguyễn Hà Nguyên**: Phát triển phần mềm.
 
 ## Chức Năng Chính
 - Thêm, sửa, xoá bệnh nhân
 - Thêm, sửa, xoá phòng điều trị
-- Lấy thông tin bệnh nhân
-- Lấy thông tin phòng điều trị
 - Thêm bệnh nhân vào phòng điều trị(Nhập viện)
-- Lấy thông tin bệnh nhân trong phòng điều trị
 - Xoá bệnh nhân khỏi phòng điều trị(Ra viện)
+- Lưu thông tin bệnh nhân vào file
 
 ## UML Dự Án
 
