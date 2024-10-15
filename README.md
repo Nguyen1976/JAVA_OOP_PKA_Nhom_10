@@ -12,6 +12,7 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 - Thêm, sửa, xoá phòng điều trị
 - Thêm bệnh nhân vào phòng điều trị(Nhập viện)
 - Xoá bệnh nhân khỏi phòng điều trị(Ra viện)
+- Lưu thông tin bệnh nhân vào file
 
 ## UML Dự Án
 
