@@ -85,7 +85,7 @@ public class HospitalController {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String formattedDateTime = now.format(formatter); // Định dạng thời gian
 
-                String patientInfo = "Hành động: " + action +
+                String patientInfo = "Tình trạng: " + action +
                         ", Bệnh nhân: " + patient.getName() +
                         ", Mã: " + patient.getPatientId() +
                         ", Phòng: " + room.getRoomId() +
