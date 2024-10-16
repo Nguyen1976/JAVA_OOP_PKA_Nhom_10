@@ -58,6 +58,8 @@ Dự án này là một hệ thống quản lý bệnh viện, giúp tối ưu h
 ## GitHub Pages Dự Án
 [Truy cập dự án tại đây](https://nguyen1976.github.io/JAVA_OOP_PKA_Nhom_10/)
 
+## DEMO SẢN PHẨM
+[DEMO](https://www.youtube.com/watch?v=5trORa60kl8)
 
 
 
