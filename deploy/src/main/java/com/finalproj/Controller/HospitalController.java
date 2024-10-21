@@ -107,7 +107,7 @@ public class HospitalController {
     }
 
     public void addPtientToRoomTemp(int patientId, int roomId) {
-        Patient patient = hospital.getPatientInfo(patientId);
+        Patient patient = hospital.getPatientInfo(patientId);   
         TreatmentRoom treatmentRoom = hospital.getRoomInfo(roomId);
 
         try {
@@ -146,7 +146,9 @@ public class HospitalController {
         Patient patient = hospital.findPatient(patientId);
         try {
             if (patient != null) {
-                System.out.println(patient.getPatientId() + "," + patient.getName() +","+ patient.getAge() +"," + patient.getGender() + "," + patient.getDiagnose() +"," + patient.getAddress() +", " + patient.getPhone());
+                System.out.println(patient.getPatientId() + ","
+                        + patient.getName() +","+ patient.getAge() +"," + patient.getGender() + ","
+                        + patient.getDiagnose() +"," + patient.getAddress() +", " + patient.getPhone());
             }else {
                 System.out.println("Not found");
             }
@@ -161,7 +163,8 @@ public class HospitalController {
         TreatmentRoom room = hospital.findTreatmentRoom(TreatmentRoomId);
         try {
             if (room != null) {
-                System.out.println(room.getRoomId() + ", " + room.getRoomName() +", " + room.getRoomType() + ", " + room.getCapacity() + ", " + room.getPatientsList());
+                System.out.println(room.getRoomId() + ", " + room.getRoomName() +", " + room.getRoomType() + ", "
+                        + room.getCapacity() + ", " + room.getPatientsList());
             }else {
                 System.out.println("Not found");
             }

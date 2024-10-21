@@ -251,11 +251,7 @@ public class Hospital {
     }
 
     // Info treatmentRoom
-
     public TreatmentRoom getRoomInfo(int roomId) {
-        if (treatmentRoomList == null || treatmentRoomList.isEmpty()) {
-            return null; // Trả về null nếu danh sách phòng chưa được khởi tạo hoặc rỗng
-        }
         return treatmentRoomList.stream()
                 .filter(treatmentRoom -> treatmentRoom.getRoomId() == roomId)
                 .findFirst()

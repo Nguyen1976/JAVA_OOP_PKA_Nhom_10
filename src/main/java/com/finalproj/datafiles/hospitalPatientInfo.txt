@@ -1,3 +1,10 @@
 Hành động: Nhập viện, Bệnh nhân: Le Van C, Mã: 3, Phòng: 1, Ngày nhập viện: 2024-10-13 21:21:44
 Hành động: Xuất viện, Bệnh nhân: Le Van C, Mã: 3, Phòng: 1, Ngày nhập viện: 2024-10-15 10:25:38, Ngày xuất viện: 2024-10-15 10:25:38
 Tình trạng: Nhập viện, Bệnh nhân: Nguyen Van A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 11:33:48
+Tình trạng: Xuất viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:30:46, Ngày xuất viện: 2024-10-16 22:30:46
+Tình trạng: Nhập viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:32:37
+Tình trạng: Xuất viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:33:13, Ngày xuất viện: 2024-10-16 22:33:13
+Tình trạng: Nhập viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:33:20
+Tình trạng: Xuất viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:40:13, Ngày xuất viện: 2024-10-16 22:40:13
+Tình trạng: Nhập viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:40:31
+Tình trạng: Xuất viện, Bệnh nhân: Nguyen Thi A, Mã: 1, Phòng: 1, Ngày nhập viện: 2024-10-16 22:40:34, Ngày xuất viện: 2024-10-16 22:40:34
